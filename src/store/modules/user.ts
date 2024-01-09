@@ -3,6 +3,7 @@ import { store } from "@/store";
 import { ACCESS_TOKEN_KEY } from "@/enums/cacheEnum";
 import { Storage } from "@/utils/Storage";
 import type { RouteRecordRaw } from "vue-router";
+import routesChildren from "@/router/modules";
 
 interface UserState {
   token: string;
@@ -17,7 +18,7 @@ export const useUserStore = defineStore({
   state: (): UserState => ({
     token: Storage.get(ACCESS_TOKEN_KEY, null),
     name: "wfj",
-    menus: [],
+    menus: [...routesChildren],
     userInfo: {},
   }),
   getters: {
@@ -28,7 +29,9 @@ export const useUserStore = defineStore({
       return this.name;
     },
   },
-  actions: {},
+  actions: {
+    setMenus() {},
+  },
 });
 
 // 在组件setup函数外使用

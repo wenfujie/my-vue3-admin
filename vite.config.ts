@@ -5,6 +5,7 @@ import { loadEnv } from "vite";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import Components from "unplugin-vue-components/vite";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 
 const CWD = process.cwd();
 
@@ -70,6 +71,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             exclude: ["Button"],
           }),
         ],
+      }),
+      createSvgIconsPlugin({
+        iconDirs: [resolve(CWD, "src/assets/icons")],
+        symbolId: "svg-icon-[dir]-[name]",
       }),
     ],
     build: {

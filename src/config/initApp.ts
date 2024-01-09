@@ -1,5 +1,7 @@
 import type { App } from "vue";
 import { setupAntd, setupCustomComponents } from "./plugins";
+// vite-plugin-svg-icons 需要
+import "virtual:svg-icons-register";
 
 export function setupPlugins(app: App) {
   // 注册全局常用的ant-design-vue组件

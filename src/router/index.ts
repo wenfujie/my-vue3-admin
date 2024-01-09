@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import { LOGIN_NAME, whiteNameList } from "./constant";
 import type { App } from "vue";
 import type { RouteRecordRaw } from "vue-router";
+import routesChildren from "./modules";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -13,7 +14,7 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "首页",
     },
-    children: [],
+    children: [...routesChildren],
   },
   {
     path: "/login",
