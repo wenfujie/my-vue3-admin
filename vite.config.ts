@@ -6,6 +6,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import Components from "unplugin-vue-components/vite";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import UnoCSS from "unocss/vite";
 
 const CWD = process.cwd();
 
@@ -52,6 +53,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     plugins: [
       vue(),
       vueJsx({}),
+      UnoCSS(),
       Components({
         dirs: ["src/components"],
         dts: "types/components.d.ts",

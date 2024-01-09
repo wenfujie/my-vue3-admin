@@ -30,7 +30,12 @@ export const useUserStore = defineStore({
     },
   },
   actions: {
-    setMenus() {},
+    login() {
+      // TODO:
+    },
+    setMenus() {
+      // TODO: 处理动态菜单
+    },
   },
 });
 
