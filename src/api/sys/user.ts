@@ -1,8 +1,8 @@
 import { request } from '@/utils/request';
-import { LoginParams } from './model/userModel';
+import type { LoginParams, LoginRes } from './model/userModel';
 
 export function login(data: LoginParams) {
-  return request<LoginParams>(
+  return request<LoginRes>(
     {
       url: 'login',
       method: 'post',

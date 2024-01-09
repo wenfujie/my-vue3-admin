@@ -3,8 +3,9 @@ import { store } from "@/store";
 import { ACCESS_TOKEN_KEY } from "@/enums/cacheEnum";
 import { Storage } from "@/utils/Storage";
 import type { RouteRecordRaw } from "vue-router";
-import routesChildren from "@/router/modules";
 import { resetRouter } from "@/router";
+import type { LoginParams, LoginRes } from "@/api/sys/model/userModel";
+import { generatorDynamicRouter } from "@/router/generator-router";
 
 interface UserState {
   token: string;
@@ -17,7 +18,7 @@ export const useUserStore = defineStore({
   id: "user",
   state: (): UserState => ({
     token: Storage.get(ACCESS_TOKEN_KEY, null),
-    menus: [...routesChildren],
+    menus: [],
     userInfo: {
       name: "wfj",
     },
@@ -28,31 +29,39 @@ export const useUserStore = defineStore({
     },
   },
   actions: {
-    login() {
+    async login(data: LoginParams) {
       // TODO: use api
-      // this.setToken(data.token);
+      const loginInfo: LoginRes = {
+        token: "123123123",
+        expire: 24 * 3600,
+      };
+      this.setToken(loginInfo.token, loginInfo.expire);
       this.afterLogin();
     },
     /** 登录成功之后, 获取用户信息以及生成权限路由 */
     async afterLogin() {
-      // TODO: use api/ generator menu
-      // this.name = userInfo.name;
-      // this.userInfo = userInfo;
-      // this.setMenus()
+      // TODO: use api getUser
+      this.userInfo = { name: "wfj" };
+      await this.setMenus();
     },
     logout() {
-      this.resetToken();
+      this.resetCache();
       resetRouter();
     },
-    setMenus() {
-      // TODO: 处理动态菜单
+    async setMenus() {
+      // TODO: 在此处理动态菜单
+      const generatorResult = await generatorDynamicRouter();
+      this.menus = generatorResult.menus.filter(
+        (item) => !item.meta?.hideInMenu
+      );
+      console.log("%c label", "color:#0f0;", this.menus);
     },
     /** 登录成功保存token */
     setToken(token: string, ex: number) {
       this.token = token ?? "";
       Storage.set(ACCESS_TOKEN_KEY, this.token, ex);
     },
-    resetToken() {
+    resetCache() {
       this.menus = [];
       this.userInfo = {};
       Storage.clear();

@@ -3,28 +3,22 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import { LOGIN_NAME, whiteNameList } from "./constant";
 import type { App } from "vue";
 import type { RouteRecordRaw } from "vue-router";
-import routesChildren from "./modules";
+import outsideLayout from "./outsideLayout";
+import { createRouterGuards } from "./router-guards";
 
 export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Layout",
+    redirect: "/dashboard/welcome",
     component: () =>
       import(/* webpackChunkName: "layout" */ "@/layout/index.vue"),
     meta: {
       title: "首页",
     },
-    children: [...routesChildren],
+    children: [],
   },
-  {
-    path: "/login",
-    name: LOGIN_NAME,
-    component: () =>
-      import(/* webpackChunkName: "login" */ "@/views/login/index.vue"),
-    meta: {
-      title: "登录",
-    },
-  },
+  ...outsideLayout,
 ];
 
 export const router = createRouter({
@@ -44,6 +38,9 @@ export function resetRouter() {
 }
 
 export async function setupRouter(app: App) {
+  // 创建路由守卫
+  createRouterGuards(router, whiteNameList);
+
   app.use(router);
 
   // 路由准备就绪后挂载APP实例

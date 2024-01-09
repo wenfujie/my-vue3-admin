@@ -1,7 +1,6 @@
 <template>
   <div class="login-box">
     <div class="login-logo">
-      <!-- <svg-icon name="logo" :size="45" /> -->
       <img src="~@/assets/images/logo.png" width="45" />
       <h1 class="mb-0 ml-2 text-3xl font-bold">Antd Admin</h1>
     </div>
@@ -54,7 +53,6 @@ import { useUserStore } from "@/store/modules/user";
 
 const state = reactive({
   loading: false,
-  captcha: "",
   formInline: {
     username: "",
     password: "",
@@ -73,11 +71,11 @@ const handleSubmit = async () => {
   message.loading("登录中...", 0);
   state.loading = true;
 
-  // await userStore.login(state.formInline);
+  await userStore.login(state.formInline);
   message.success("登录成功！");
   state.loading = false;
   message.destroy();
-  setTimeout(() => router.replace("/"));
+  setTimeout(() => router.replace("/dashboard/welcome"), 1000);
 };
 </script>
 
