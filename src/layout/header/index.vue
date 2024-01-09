@@ -52,13 +52,6 @@
         }}</Avatar>
         <template #overlay>
           <Menu>
-            <Menu.Item @click="$router.push({ name: 'account-about' })">
-              关于
-            </Menu.Item>
-            <Menu.Item @click="$router.push({ name: 'account-settings' })">
-              个人设置
-            </Menu.Item>
-            <Menu.Divider />
             <Menu.Item>
               <div @click.prevent="doLogout">
                 <poweroff-outlined />
@@ -199,12 +192,7 @@ const doLogout = () => {
     icon: <QuestionCircleOutlined />,
     centered: true,
     onOk: async () => {
-      // 如果不是rootadmin，则退出登录
-      if (userStore.userInfo.phone !== "13553550634") {
-        // logout({})
-        // TODO:
-        // await userStore.logout();
-      }
+      await userStore.logout();
       keepAliveStore.clear();
       // 移除标签页
       localStorage.clear();

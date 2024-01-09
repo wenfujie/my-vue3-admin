@@ -23,7 +23,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       port: 5173,
       proxy: {
         "/api": {
-          // target: 'https://nest-api.buqiyuan.site/api/',
           target: "http://localhost:3000",
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ""),
