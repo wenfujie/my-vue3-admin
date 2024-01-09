@@ -1,4 +1,4 @@
-import { App } from "vue";
+import type { App } from "vue";
 import { setupAntd } from "./plugins/antd";
 
 export function setupPlugins(app: App) {
@@ -12,14 +12,4 @@ export function setupPlugins(app: App) {
   // setupDirectives(app);
   // 注册全局方法，如：app.config.globalProperties.$message = message
   // setupGlobalMethods(app);
-}
-
-export async function setupApp(app: App) {
-  // 挂载vuex状态管理
-  // setupStore(app);
-  // Multilingual configuration
-  // Asynchronous case: language files may be obtained from the server side
-  // await setupI18n(app);
-  // 挂载路由
-  // await setupRouter(app);
 }
