@@ -36,6 +36,8 @@ declare global {
     [P in keyof T]?: DeepPartial<T[P]>;
   };
 
+  declare type EmitFn<E = EmitsOptions> = SetupContext<E>['emit'];
+
   namespace JSX {
     // tslint:disable no-empty-interface
     type Element = VNode;

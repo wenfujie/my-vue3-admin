@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <a-switch v-model:checked="checked"></a-switch>
-  </div>
+  <div>home</div>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue";
-const checked = ref(true);
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>
