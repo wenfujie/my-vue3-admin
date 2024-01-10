@@ -7,10 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AButton: typeof import('./src/components/basic/button/')['AButton']
+    AButton: typeof import('ant-design-vue/es')['Button']
     AForm: typeof import('ant-design-vue/es')['Form']
     AFormItem: typeof import('ant-design-vue/es')['FormItem']
     AInput: typeof import('ant-design-vue/es')['Input']
+    ASwitch: typeof import('ant-design-vue/es')['Switch']
     DraggableModal: typeof import('./../src/components/core/draggable-modal/index.vue')['default']
     ProConfigProvider: typeof import('./../src/components/basic/pro-config-provider/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

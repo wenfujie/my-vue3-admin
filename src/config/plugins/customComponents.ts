@@ -1,5 +1,4 @@
 import type { App } from "vue";
-
 import { IconFont } from "@/components/basic/iconfont";
 
 /**

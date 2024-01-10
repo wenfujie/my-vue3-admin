@@ -1,2 +1,2 @@
-export { setupAntd } from "./antd";
 export { setupCustomComponents } from "./customComponents";
+export {setupGlobalMethods}from './globalMethods'
