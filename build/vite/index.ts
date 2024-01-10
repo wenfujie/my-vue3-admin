@@ -14,7 +14,8 @@ export function createVitePlugins(isBuild: boolean) {
     vueJsx({}),
     UnoCSS(),
     Components({
-      dirs: ["src/components"],
+      //  自动导入目录，例如 "src/components"
+      dirs: [],
       dts: "types/components.d.ts",
       types: [
         {
