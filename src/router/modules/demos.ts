@@ -38,56 +38,61 @@ const routes: Array<RouteRecordRaw> = [
                 /* webpackChunkName: "basic-form" */ "@/views/demos/form/basic-form/index.vue"
               ),
           },
-          // {
-          //   path: 'rule',
-          //   name: `${moduleName}-form-rule`,
-          //   meta: {
-          //     title: t('routes.demo.form.rule'),
-          //     icon: 'icon-zhuomian',
-          //     keepAlive: true,
-          //   },
-          //   component: () => import('@/views/demos/form/rule-form/index.vue'),
-          // },
-          // {
-          //   path: 'dynamic',
-          //   name: `${moduleName}-form-dynamic`,
-          //   meta: {
-          //     title: t('routes.demo.form.dynamic'),
-          //     icon: 'icon-zhuomian',
-          //     keepAlive: true,
-          //   },
-          //   component: () => import('@/views/demos/form/dynamic-form/index.vue'),
-          // },
-          // {
-          //   path: 'useForm',
-          //   name: `${moduleName}-form-use`,
-          //   meta: {
-          //     title: 'useForm',
-          //     icon: 'icon-zhuomian',
-          //     keepAlive: true,
-          //   },
-          //   component: () => import('@/views/demos/form/use-form/index.vue'),
-          // },
-          // {
-          //   path: 'custom-form',
-          //   name: `${moduleName}-form-custom`,
-          //   meta: {
-          //     title: t('routes.demo.form.customForm'),
-          //     icon: 'icon-zhuomian',
-          //     keepAlive: true,
-          //   },
-          //   component: () => import('@/views/demos/form/custom-form/index.vue'),
-          // },
-          // {
-          //   path: 'request-form',
-          //   name: `${moduleName}-form-request`,
-          //   meta: {
-          //     title: '自定义请求表单',
-          //     icon: 'icon-zhuomian',
-          //     keepAlive: true,
-          //   },
-          //   component: () => import('@/views/demos/form/request-form/index.vue'),
-          // },
+          {
+            path: "rule",
+            name: `${moduleName}-form-rule`,
+            meta: {
+              title: "表单校验",
+              icon: "icon-zhuomian",
+              keepAlive: true,
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "rule-form" */ "@/views/demos/form/rule-form/index.vue"
+              ),
+          },
+          {
+            path: "dynamic",
+            name: `${moduleName}-form-dynamic`,
+            meta: {
+              title: "动态表单",
+              icon: "icon-zhuomian",
+              keepAlive: true,
+            },
+            component: () =>
+              import("@/views/demos/form/dynamic-form/index.vue"),
+          },
+          {
+            path: "useForm",
+            name: `${moduleName}-form-use`,
+            meta: {
+              title: "useForm",
+              icon: "icon-zhuomian",
+              keepAlive: true,
+            },
+            component: () => import("@/views/demos/form/use-form/index.vue"),
+          },
+          {
+            path: "custom-form",
+            name: `${moduleName}-form-custom`,
+            meta: {
+              title: '自定义表单组件',
+              icon: "icon-zhuomian",
+              keepAlive: true,
+            },
+            component: () => import("@/views/demos/form/custom-form/index.vue"),
+          },
+          {
+            path: "request-form",
+            name: `${moduleName}-form-request`,
+            meta: {
+              title: "自定义请求表单",
+              icon: "icon-zhuomian",
+              keepAlive: true,
+            },
+            component: () =>
+              import("@/views/demos/form/request-form/index.vue"),
+          },
         ],
       },
     ],

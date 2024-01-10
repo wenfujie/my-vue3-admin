@@ -1,5 +1,12 @@
 <template>
   <div>
+    <Alert
+      message="基础表单示例"
+      type="info"
+      show-icon
+      style="margin-bottom: 12px"
+    >
+    </Alert>
     <a-card>
       <SchemaForm @submit="handleSubmit">
         <template #selectA="{ formModel, field }">
