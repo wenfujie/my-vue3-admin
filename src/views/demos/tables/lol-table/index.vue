@@ -13,6 +13,10 @@
         export-file-name="表格自带导出"
         :custom-row="customRow"
       >
+        <template #toolbar>
+          <a-button type="primary"> 创建 </a-button>
+          <a-button type="default"> 上传图片 </a-button>
+        </template>
       </DynamicTable>
     </Card>
   </div>
@@ -29,13 +33,29 @@ defineOptions({
   name: "DemosTablesLolTable",
 });
 
-const [DynamicTable] = useTable();
+const [DynamicTable, dynamicTableInstance] = useTable();
 
 let tableData: any[] = [];
 
 const loadData = async (params) => {
   const data = await getLolHeroList(params);
-  console.log("%c data", "color:#0f0;", data);
+  dynamicTableInstance?.getQueryFormRef()?.updateSchema?.([
+    {
+      field: "other",
+      componentProps: {
+        options: [
+          {
+            label: "皮肤1",
+            value: "aa",
+          },
+          {
+            label: "皮肤2",
+            value: "bb",
+          },
+        ],
+      },
+    },
+  ]);
 
   tableData = data.list;
   return data;

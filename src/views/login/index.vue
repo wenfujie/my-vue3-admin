@@ -13,7 +13,7 @@
         <a-input
           v-model:value="state.formInline.username"
           size="large"
-          placeholder="rootadmin"
+          placeholder="请输入账号"
         >
           <template #prefix><user-outlined type="user" /></template>
         </a-input>
@@ -23,7 +23,7 @@
           v-model:value="state.formInline.password"
           size="large"
           type="password"
-          placeholder="123456"
+          placeholder="请输入密码"
           autocomplete="new-password"
         >
           <template #prefix><lock-outlined type="user" /></template>

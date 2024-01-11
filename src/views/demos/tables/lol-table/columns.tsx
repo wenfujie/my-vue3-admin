@@ -1,7 +1,7 @@
-import { ref, defineComponent } from 'vue';
-import { Tag, Image } from 'ant-design-vue';
-import type { TableColumn } from '@/components/core/dynamic-table';
-import router from '@/router';
+import { ref, defineComponent } from "vue";
+import { Tag, Image } from "ant-design-vue";
+import type { TableColumn } from "@/components/core/dynamic-table";
+import router from "@/router";
 
 const AvatarRender = defineComponent({
   props: { record: Object },
@@ -16,10 +16,15 @@ const AvatarRender = defineComponent({
         />
         <div hidden>
           <Image.PreviewGroup
-            // @ts-ignore
-            preview={{ open: visible.value, onOpenChange: (vis) => (visible.value = vis) }}
+            preview={{
+              // @ts-ignore
+              open: visible.value,
+              onOpenChange: (vis) => (visible.value = vis),
+            }}
           >
-            {props.record?.posters.map((item) => <Image src={item} key={item} />)}
+            {props.record?.posters.map((item) => (
+              <Image src={item} key={item} />
+            ))}
           </Image.PreviewGroup>
         </div>
       </>
@@ -29,31 +34,33 @@ const AvatarRender = defineComponent({
 
 export const columns: TableColumn[] = [
   {
-    title: '头像',
-    align: 'center',
+    title: "头像",
+    align: "center",
     width: 100,
     hideInSearch: true,
-    dataIndex: 'avatar',
-    customRender: ({ record }) => <AvatarRender record={record} key={record.avatar} />,
+    dataIndex: "avatar",
+    customRender: ({ record }) => (
+      <AvatarRender record={record} key={record.avatar} />
+    ),
   },
   {
-    title: '英雄名称',
-    align: 'center',
-    dataIndex: 'title',
+    title: "英雄名称",
+    align: "center",
+    dataIndex: "title",
   },
   {
-    title: '英雄称号',
-    align: 'center',
-    dataIndex: 'name',
+    title: "英雄称号",
+    align: "center",
+    dataIndex: "name",
   },
   {
-    title: '定位',
-    align: 'center',
-    dataIndex: 'roles',
+    title: "定位",
+    align: "center",
+    dataIndex: "roles",
     customRender: ({ record }) => (
       <div>
         {record.roles?.map((name) => (
-          <Tag color={'blue'} key={name}>
+          <Tag color={"blue"} key={name}>
             {name}
           </Tag>
         ))}
@@ -61,14 +68,26 @@ export const columns: TableColumn[] = [
     ),
   },
   {
-    title: '操作',
-    align: 'center',
+    title: "自定义过滤项",
+    dataIndex: "other",
+    formItemProps: {
+      component: "Select",
+    },
+    hideInTable: true,
+  },
+  {
+    title: "操作",
+    align: "center",
     width: 120,
-    dataIndex: 'ACTION',
+    dataIndex: "ACTION",
     actions: ({ record }) => [
       {
-        label: '查看详情',
-        onClick: () => router.push({ name: 'demos-table-lol-info', params: { id: record.heroId } }),
+        label: "查看详情",
+        onClick: () =>
+          router.push({
+            name: "demos-table-lol-info",
+            params: { id: record.heroId },
+          }),
       },
     ],
   },

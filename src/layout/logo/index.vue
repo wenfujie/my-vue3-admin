@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
     <img src="~@/assets/images/logo.png" alt="" />
-    <h2 v-show="!collapsed" class="title">One Piece</h2>
+    <h2 v-show="!collapsed" class="title">XXX 管理系统</h2>
   </div>
 </template>
 

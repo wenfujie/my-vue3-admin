@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
     redirect: { name: `${moduleName}-custom-modal` },
     component: RouterView,
     meta: {
-      title: "demo演示",
+      title: "组件demo演示",
       icon: "icon-zhuomian",
     },
     children: [
@@ -103,7 +103,7 @@ const routes: Array<RouteRecordRaw> = [
           icon: "icon-zhuomian",
           keepAlive: true,
         },
-        redirect: { name: `${moduleName}-table-wzry` },
+        redirect: { name: `${moduleName}-table-lol` },
         component: RouterView,
         children: [
           {
@@ -117,32 +117,6 @@ const routes: Array<RouteRecordRaw> = [
             component: () =>
               import(
                 /* webpackChunkName: "search-table" */ "@/views/demos/tables/search-table/index.vue"
-              ),
-          },
-          {
-            path: "edit-row-table",
-            name: `${moduleName}-edit-row-table`,
-            meta: {
-              title: "可编辑行",
-              icon: "icon-zhuomian",
-              keepAlive: false,
-            },
-            component: () =>
-              import(
-                /* webpackChunkName: "edit-row-table" */ "@/views/demos/tables/edit-row-table/index.vue"
-              ),
-          },
-          {
-            path: "wzry",
-            name: `${moduleName}-table-wzry`,
-            meta: {
-              title: "王者荣耀",
-              icon: "icon-zhuomian",
-              keepAlive: false,
-            },
-            component: () =>
-              import(
-                /* webpackChunkName: "wzry-table" */ "@/views/demos/tables/wzry-table/index.vue"
               ),
           },
           {
@@ -171,6 +145,19 @@ const routes: Array<RouteRecordRaw> = [
             component: () =>
               import(
                 /* webpackChunkName: "lol-info-table" */ "@/views/demos/tables/lol-table/heroInfo.vue"
+              ),
+          },
+          {
+            path: "edit-row-table",
+            name: `${moduleName}-edit-row-table`,
+            meta: {
+              title: "可编辑行",
+              icon: "icon-zhuomian",
+              keepAlive: false,
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "edit-row-table" */ "@/views/demos/tables/edit-row-table/index.vue"
               ),
           },
         ],
