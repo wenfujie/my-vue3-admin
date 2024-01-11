@@ -6,6 +6,7 @@ import UnoCSS from "unocss/vite";
 import Components from "unplugin-vue-components/vite";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import { viteMockServe } from "vite-plugin-mock";
 
 export function createVitePlugins(isBuild: boolean) {
   const CWD = process.cwd();
@@ -32,6 +33,18 @@ export function createVitePlugins(isBuild: boolean) {
     createSvgIconsPlugin({
       iconDirs: [resolve(CWD, "src/assets/icons")],
       symbolId: "svg-icon-[dir]-[name]",
+    }),
+    viteMockServe({
+      ignore: /^_/,
+      mockPath: "mock",
+      localEnabled: !isBuild,
+      prodEnabled: isBuild,
+      logger: true,
+      injectCode: `
+        import { setupProdMockServer } from '../mock/_createProductionServer';
+
+        setupProdMockServer();
+        `,
     }),
   ];
 

@@ -1,20 +1,19 @@
 <template>
   <icon-font :type="item?.meta?.icon" />
-  <span>{{ item?.meta?.title}}</span>
+  <span>{{ item?.meta?.title }}</span>
 </template>
 
 <script lang="ts" setup>
-  import type { RouteRecordRaw } from 'vue-router';
-  import { IconFont } from '@/components/basic/iconfont';
+import type { RouteRecordRaw } from "vue-router";
 
-  defineOptions({
-    name: 'MenuItemContent',
-  });
+defineOptions({
+  name: "MenuItemContent",
+});
 
-  defineProps({
-    item: {
-      type: Object as PropType<RouteRecordRaw>,
-      default: () => ({}),
-    },
-  });
+defineProps({
+  item: {
+    type: Object as PropType<RouteRecordRaw>,
+    default: () => ({}),
+  },
+});
 </script>

@@ -76,7 +76,7 @@ const routes: Array<RouteRecordRaw> = [
             path: "custom-form",
             name: `${moduleName}-form-custom`,
             meta: {
-              title: '自定义表单组件',
+              title: "自定义表单组件",
               icon: "icon-zhuomian",
               keepAlive: true,
             },
@@ -92,6 +92,166 @@ const routes: Array<RouteRecordRaw> = [
             },
             component: () =>
               import("@/views/demos/form/request-form/index.vue"),
+          },
+        ],
+      },
+      {
+        path: "table",
+        name: `${moduleName}-table`,
+        meta: {
+          title: "表格演示",
+          icon: "icon-zhuomian",
+          keepAlive: true,
+        },
+        redirect: { name: `${moduleName}-table-wzry` },
+        component: RouterView,
+        children: [
+          {
+            path: "search-table",
+            name: `${moduleName}-query-form`,
+            meta: {
+              title: "查询表格",
+              icon: "icon-zhuomian",
+              keepAlive: false,
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "search-table" */ "@/views/demos/tables/search-table/index.vue"
+              ),
+          },
+          {
+            path: "edit-row-table",
+            name: `${moduleName}-edit-row-table`,
+            meta: {
+              title: "可编辑行",
+              icon: "icon-zhuomian",
+              keepAlive: false,
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "edit-row-table" */ "@/views/demos/tables/edit-row-table/index.vue"
+              ),
+          },
+          {
+            path: "wzry",
+            name: `${moduleName}-table-wzry`,
+            meta: {
+              title: "王者荣耀",
+              icon: "icon-zhuomian",
+              keepAlive: false,
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "wzry-table" */ "@/views/demos/tables/wzry-table/index.vue"
+              ),
+          },
+          {
+            path: "lol",
+            name: `${moduleName}-table-lol`,
+            meta: {
+              title: "英雄联盟",
+              icon: "icon-zhuomian",
+              keepAlive: true,
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "lol-table" */ "@/views/demos/tables/lol-table/index.vue"
+              ),
+          },
+          {
+            path: "lol/:id",
+            name: `${moduleName}-table-lol-info`,
+            meta: {
+              title: "英雄详情",
+              icon: "icon-zhuomian",
+              hideInMenu: true,
+              keepAlive: true,
+              activeMenu: `${moduleName}-table-lol`,
+            },
+            component: () =>
+              import(
+                /* webpackChunkName: "lol-info-table" */ "@/views/demos/tables/lol-table/heroInfo.vue"
+              ),
+          },
+        ],
+      },
+      {
+        path: "icons",
+        name: `${moduleName}-icons`,
+        meta: {
+          title: "自定义图标",
+          icon: "icon-zhuomian",
+          keepAlive: true,
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "demos-button" */ "@/views/demos/icons/Iconfont.vue"
+          ),
+      },
+      {
+        path: "custom-modal",
+        name: `${moduleName}-custom-modal`,
+        meta: {
+          title: "可拖拽弹窗",
+          icon: "icon-zhuomian",
+          keepAlive: true,
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "demos-custom-a-custom-modal" */ "@/views/demos/custom-modal.vue"
+          ),
+      },
+      {
+        path: "nested-routes",
+        name: `${moduleName}-nested-routes`,
+        redirect: { name: `${moduleName}-nested-routes-one` },
+        meta: {
+          title: "嵌套路由",
+          icon: "icon-zhuomian",
+          keepAlive: true,
+          hideChildrenInMenu: true,
+          transitionName: false,
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "nested-routes" */ "@/views/demos/nested-routes/index.vue"
+          ),
+        children: [
+          {
+            path: "route-one",
+            name: `${moduleName}-nested-routes-one`,
+            meta: {
+              title: "路由一",
+              icon: "icon-zhuomian",
+              hideInMenu: true,
+              activeMenu: `${moduleName}-nested-routes`,
+            },
+            component: () =>
+              import("@/views/demos/nested-routes/route-one.vue"),
+          },
+          {
+            path: "route-two",
+            name: `${moduleName}-nested-routes-two`,
+            meta: {
+              title: "路由二",
+              icon: "icon-zhuomian",
+              hideInMenu: true,
+              activeMenu: `${moduleName}-nested-routes`,
+            },
+            component: () =>
+              import("@/views/demos/nested-routes/route-two.vue"),
+          },
+          {
+            path: "route-three",
+            name: `${moduleName}-nested-routes-three`,
+            meta: {
+              title: "路由三",
+              icon: "icon-zhuomian",
+              hideInMenu: true,
+              activeMenu: `${moduleName}-nested-routes`,
+            },
+            component: () =>
+              import("@/views/demos/nested-routes/route-three.vue"),
           },
         ],
       },

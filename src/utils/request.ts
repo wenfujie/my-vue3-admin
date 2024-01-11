@@ -8,10 +8,12 @@ const UNKNOWN_ERROR = "未知错误，请重试";
 
 /** 真实请求的路径前缀 */
 const baseApiUrl = import.meta.env.VITE_BASE_API;
+/** mock请求路径前缀 */
+const baseMockUrl = import.meta.env.VITE_MOCK_API;
 
 const service = axios.create({
   // baseURL: baseApiUrl,
-  timeout: 6000,
+  timeout: 15000,
 });
 
 service.interceptors.request.use(
@@ -50,6 +52,19 @@ service.interceptors.response.use(
   }
 );
 
+export interface RequestOptions {
+  /** 是否mock数据请求 */
+  isMock?: boolean;
+}
+
+export type Response<T = any> = {
+  code: number;
+  message: string;
+  data: T;
+};
+
+export type BaseResponse<T = any> = Promise<Response<T>>;
+
 /**
  *
  * @param method - request methods
@@ -57,11 +72,13 @@ service.interceptors.response.use(
  * @param data - request data or params
  */
 export const request = async <T = any>(
-  config: AxiosRequestConfig
+  config: AxiosRequestConfig,
+  options: RequestOptions = {}
 ): Promise<T> => {
-  try {
-    config.url = baseApiUrl + config.url;
+  const { isMock } = options;
+  config.url = `${(isMock ? baseMockUrl : baseApiUrl) + config.url}`;
 
+  try {
     const res = await service.request(config);
     return res.data;
   } catch (error: any) {
