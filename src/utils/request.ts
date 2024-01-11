@@ -12,7 +12,7 @@ const baseApiUrl = import.meta.env.VITE_BASE_API;
 const baseMockUrl = import.meta.env.VITE_MOCK_API;
 
 const service = axios.create({
-  // baseURL: baseApiUrl,
+  baseURL: baseApiUrl,
   timeout: 15000,
 });
 

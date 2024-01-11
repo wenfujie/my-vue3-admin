@@ -1,12 +1,11 @@
-import { resultPageSuccess, resultSuccess } from '../../_util';
-import heroListJson from './_heroList.json';
+import { resultPageSuccess, resultSuccess, baseUrl } from '../../_util';
 import heroLoLListJson from './_lolHeroList.json';
 import type { MockMethod } from 'vite-plugin-mock';
 
 export default [
   // 获取请求日志
   {
-    url: '/mock-api/demos/lol/hero_list',
+    url: baseUrl + '/demos/lol/hero_list',
     method: 'get',
     timeout: 700,
     response: ({ query }) => {
@@ -16,7 +15,7 @@ export default [
     },
   },
   {
-    url: '/mock-api/demos/lol/hero_info',
+    url: baseUrl + '/demos/lol/hero_info',
     method: 'get',
     timeout: 200,
     response: ({ query }) => {

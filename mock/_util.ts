@@ -1,5 +1,8 @@
 // Interface data format used to return a unified format
 
+// 即 VITE_BASE_API + VITE_MOCK_API
+export const baseUrl = '/api/mock-api';
+
 export function resultSuccess<T = Recordable>(data: T, { message = 'ok' } = {}) {
   return {
     code: 0,
