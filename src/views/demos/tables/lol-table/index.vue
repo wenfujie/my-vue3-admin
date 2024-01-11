@@ -23,51 +23,51 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
-import { Alert, Card } from "ant-design-vue";
-import { columns } from "./columns";
-import { useTable } from "@/components/core/dynamic-table";
-import { getLolHeroList } from "@/views/demos/api";
+  import { useRouter } from 'vue-router';
+  import { Alert, Card } from 'ant-design-vue';
+  import { columns } from './columns';
+  import { useTable } from '@/components/core/dynamic-table';
+  import { getLolHeroList } from '@/views/demos/api';
 
-defineOptions({
-  name: "DemosTablesLolTable",
-});
+  defineOptions({
+    name: 'DemosTablesLolTable',
+  });
 
-const [DynamicTable, dynamicTableInstance] = useTable();
+  const [DynamicTable, dynamicTableInstance] = useTable();
 
-let tableData: any[] = [];
+  let tableData: any[] = [];
 
-const loadData = async (params) => {
-  const data = await getLolHeroList(params);
-  dynamicTableInstance?.getQueryFormRef()?.updateSchema?.([
-    {
-      field: "other",
-      componentProps: {
-        options: [
-          {
-            label: "皮肤1",
-            value: "aa",
-          },
-          {
-            label: "皮肤2",
-            value: "bb",
-          },
-        ],
+  const loadData = async (params) => {
+    const data = await getLolHeroList(params);
+    dynamicTableInstance?.getQueryFormRef()?.updateSchema?.([
+      {
+        field: 'other',
+        componentProps: {
+          options: [
+            {
+              label: '皮肤1',
+              value: 'aa',
+            },
+            {
+              label: '皮肤2',
+              value: 'bb',
+            },
+          ],
+        },
       },
-    },
-  ]);
+    ]);
 
-  tableData = data.list;
-  return data;
-};
-
-const customRow = (record) => {
-  return {
-    onContextmenu: (e: MouseEvent) => {
-      console.log("%c 右键回调", "color:#0f0;");
-    },
+    tableData = data.list;
+    return data;
   };
-};
+
+  const customRow = (record) => {
+    return {
+      onContextmenu: (e: MouseEvent) => {
+        console.log('%c 右键回调', 'color:#0f0;');
+      },
+    };
+  };
 </script>
 
 <style lang="less" scoped></style>

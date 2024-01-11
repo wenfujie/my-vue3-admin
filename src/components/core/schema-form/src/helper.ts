@@ -1,55 +1,46 @@
-import dayjs from "dayjs";
-import type { RuleObject } from "ant-design-vue/es/form/";
-import type { ComponentMapType } from "./types/component";
-import { isNumber } from "@/utils/is";
+import dayjs from 'dayjs';
+import type { RuleObject } from 'ant-design-vue/es/form/';
+import type { ComponentMapType } from './types/component';
+import { isNumber } from '@/utils/is';
 
 /**
  * @description: 生成placeholder
  */
-export function createPlaceholderMessage(
-  component: ComponentMapType,
-  label = ""
-) {
-  if (component.includes("Input") || component.includes("Complete")) {
+export function createPlaceholderMessage(component: ComponentMapType, label = '') {
+  if (component.includes('Input') || component.includes('Complete')) {
     return `请输入${label}`;
   }
   const chooseTypes: ComponentMapType[] = [
-    "Select",
-    "Cascader",
-    "Checkbox",
-    "CheckboxGroup",
-    "Switch",
-    "TreeSelect",
+    'Select',
+    'Cascader',
+    'Checkbox',
+    'CheckboxGroup',
+    'Switch',
+    'TreeSelect',
   ];
-  if (component.includes("Picker") || chooseTypes.includes(component)) {
+  if (component.includes('Picker') || chooseTypes.includes(component)) {
     return `请选择${label}`;
   }
-  return "";
+  return '';
 }
 
-const DATE_TYPE = ["DatePicker", "MonthPicker", "WeekPicker", "TimePicker"];
+const DATE_TYPE = ['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'];
 
 function genType() {
-  return [...DATE_TYPE, "RangePicker"];
+  return [...DATE_TYPE, 'RangePicker'];
 }
 
 export function setComponentRuleType(
   rule: RuleObject,
   component: ComponentMapType,
-  valueFormat: string
+  valueFormat: string,
 ) {
-  if (
-    ["DatePicker", "MonthPicker", "WeekPicker", "TimePicker"].includes(
-      component
-    )
-  ) {
-    rule.type = valueFormat ? "string" : "object";
-  } else if (
-    ["RangePicker", "Upload", "CheckboxGroup", "TimePicker"].includes(component)
-  ) {
-    rule.type = "array";
-  } else if (["InputNumber"].includes(component)) {
-    rule.type = "number";
+  if (['DatePicker', 'MonthPicker', 'WeekPicker', 'TimePicker'].includes(component)) {
+    rule.type = valueFormat ? 'string' : 'object';
+  } else if (['RangePicker', 'Upload', 'CheckboxGroup', 'TimePicker'].includes(component)) {
+    rule.type = 'array';
+  } else if (['InputNumber'].includes(component)) {
+    rule.type = 'number';
   }
 }
 
@@ -62,16 +53,9 @@ export function processDateValue(attr: Recordable, component: string) {
   }
 }
 
-export function handleInputNumberValue(
-  component?: ComponentMapType,
-  val?: any
-) {
+export function handleInputNumberValue(component?: ComponentMapType, val?: any) {
   if (!component) return val;
-  if (
-    ["Input", "InputPassword", "InputSearch", "InputTextArea"].includes(
-      component
-    )
-  ) {
+  if (['Input', 'InputPassword', 'InputSearch', 'InputTextArea'].includes(component)) {
     return val && isNumber(val) ? `${val}` : val;
   }
   return val;

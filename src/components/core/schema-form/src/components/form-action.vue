@@ -1,9 +1,6 @@
 <template>
   <Col v-if="showActionButtonGroup" v-bind="actionColOpt">
-    <div
-      style="width: 100%"
-      :style="{ textAlign: actionColOpt.style.textAlign }"
-    >
+    <div style="width: 100%" :style="{ textAlign: actionColOpt.style.textAlign }">
       <Form.Item>
         <slot name="resetBefore"></slot>
         <a-button
@@ -34,7 +31,7 @@
           size="small"
           @click="toggleAdvanced"
         >
-          {{ isAdvanced ? "收起" : "展开" }}
+          {{ isAdvanced ? '收起' : '展开' }}
           <BasicArrow class="ml-1" :expand="!isAdvanced" />
         </a-button>
         <slot name="advanceAfter"></slot>
@@ -43,94 +40,92 @@
   </Col>
 </template>
 <script lang="ts" setup>
-import { computed, type PropType } from "vue";
-import { Form, Col } from "ant-design-vue";
-import { useFormContext } from "../hooks/useFormContext";
-import type { ColEx } from "../types/component";
-import type { ButtonProps } from "../types/antd";
-import { BasicArrow } from "@/components/basic/basic-arrow";
+  import { computed, type PropType } from 'vue';
+  import { Form, Col } from 'ant-design-vue';
+  import { useFormContext } from '../hooks/useFormContext';
+  import type { ColEx } from '../types/component';
+  import type { ButtonProps } from '../types/antd';
+  import { BasicArrow } from '@/components/basic/basic-arrow';
 
-type ButtonOptions = Partial<ButtonProps> & { text: string };
+  type ButtonOptions = Partial<ButtonProps> & { text: string };
 
-defineOptions({
-  name: "FormAction",
-  inheritAttrs: false,
-});
+  defineOptions({
+    name: 'FormAction',
+    inheritAttrs: false,
+  });
 
-const emit = defineEmits(["toggle-advanced"]);
+  const emit = defineEmits(['toggle-advanced']);
 
-const props = defineProps({
-  showActionButtonGroup: {
-    type: Boolean,
-    default: true,
-  },
-  showResetButton: {
-    type: Boolean,
-    default: true,
-  },
-  showSubmitButton: {
-    type: Boolean,
-    default: true,
-  },
-  showAdvancedButton: {
-    type: Boolean,
-    default: true,
-  },
-  resetButtonOptions: {
-    type: Object as PropType<ButtonOptions>,
-    default: () => ({}),
-  },
-  submitButtonOptions: {
-    type: Object as PropType<ButtonOptions>,
-    default: () => ({}),
-  },
-  actionColOptions: {
-    type: Object as PropType<Partial<ColEx>>,
-    default: () => ({}),
-  },
-  actionSpan: {
-    type: Number,
-    default: 6,
-  },
-  isAdvanced: Boolean,
-  hideAdvanceBtn: Boolean,
-});
-
-const { resetFields, submit } = useFormContext();
-const actionColOpt = computed(() => {
-  const { showAdvancedButton, actionSpan: span, actionColOptions } = props;
-  const actionSpan = 24 - span;
-  const advancedSpanObj = showAdvancedButton
-    ? { span: actionSpan < 6 ? 24 : actionSpan }
-    : {};
-  const actionColOpt: Partial<ColEx> = {
-    style: { textAlign: "right" },
-    span: showAdvancedButton ? 6 : 4,
-    ...advancedSpanObj,
-    ...actionColOptions,
-  };
-  return actionColOpt;
-});
-
-const getResetBtnOptions = computed((): ButtonOptions => {
-  return Object.assign(
-    {
-      text: "重置",
+  const props = defineProps({
+    showActionButtonGroup: {
+      type: Boolean,
+      default: true,
     },
-    props.resetButtonOptions
-  );
-});
-
-const getSubmitBtnOptions = computed(() => {
-  return Object.assign(
-    {
-      text: "查询",
+    showResetButton: {
+      type: Boolean,
+      default: true,
     },
-    props.submitButtonOptions
-  );
-});
+    showSubmitButton: {
+      type: Boolean,
+      default: true,
+    },
+    showAdvancedButton: {
+      type: Boolean,
+      default: true,
+    },
+    resetButtonOptions: {
+      type: Object as PropType<ButtonOptions>,
+      default: () => ({}),
+    },
+    submitButtonOptions: {
+      type: Object as PropType<ButtonOptions>,
+      default: () => ({}),
+    },
+    actionColOptions: {
+      type: Object as PropType<Partial<ColEx>>,
+      default: () => ({}),
+    },
+    actionSpan: {
+      type: Number,
+      default: 6,
+    },
+    isAdvanced: Boolean,
+    hideAdvanceBtn: Boolean,
+  });
 
-function toggleAdvanced() {
-  emit("toggle-advanced", props.isAdvanced);
-}
+  const { resetFields, submit } = useFormContext();
+  const actionColOpt = computed(() => {
+    const { showAdvancedButton, actionSpan: span, actionColOptions } = props;
+    const actionSpan = 24 - span;
+    const advancedSpanObj = showAdvancedButton ? { span: actionSpan < 6 ? 24 : actionSpan } : {};
+    const actionColOpt: Partial<ColEx> = {
+      style: { textAlign: 'right' },
+      span: showAdvancedButton ? 6 : 4,
+      ...advancedSpanObj,
+      ...actionColOptions,
+    };
+    return actionColOpt;
+  });
+
+  const getResetBtnOptions = computed((): ButtonOptions => {
+    return Object.assign(
+      {
+        text: '重置',
+      },
+      props.resetButtonOptions,
+    );
+  });
+
+  const getSubmitBtnOptions = computed(() => {
+    return Object.assign(
+      {
+        text: '查询',
+      },
+      props.submitButtonOptions,
+    );
+  });
+
+  function toggleAdvanced() {
+    emit('toggle-advanced', props.isAdvanced);
+  }
 </script>

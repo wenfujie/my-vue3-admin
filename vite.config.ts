@@ -1,7 +1,7 @@
-import { resolve } from "node:path";
-import type { UserConfig, ConfigEnv } from "vite";
-import { loadEnv } from "vite";
-import { createVitePlugins } from "./build/vite";
+import { resolve } from 'node:path';
+import type { UserConfig, ConfigEnv } from 'vite';
+import { loadEnv } from 'vite';
+import { createVitePlugins } from './build/vite';
 
 const CWD = process.cwd();
 
@@ -9,18 +9,18 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   // 环境变量
   const { VITE_BASE_URL } = loadEnv(mode, CWD);
 
-  const isBuild = command === "build";
+  const isBuild = command === 'build';
 
   return {
     base: VITE_BASE_URL,
     server: {
-      host: "0.0.0.0",
+      host: '0.0.0.0',
       port: 5173,
       proxy: {
-        "/api": {
-          target: "http://localhost:3000",
+        '/api': {
+          target: 'http://localhost:3000',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },
     },
@@ -39,16 +39,16 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias: [
         {
-          find: "@",
-          replacement: resolve(__dirname, "./src"),
+          find: '@',
+          replacement: resolve(__dirname, './src'),
         },
       ],
     },
     plugins: createVitePlugins(isBuild),
     build: {
-      target: "es2017",
-      minify: "esbuild",
-      cssTarget: "chrome79",
+      target: 'es2017',
+      minify: 'esbuild',
+      cssTarget: 'chrome79',
       chunkSizeWarningLimit: 2000,
     },
   };

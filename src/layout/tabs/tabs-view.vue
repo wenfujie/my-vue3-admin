@@ -12,7 +12,7 @@
         <template #tab>
           <Dropdown :trigger="['contextmenu']">
             <div style="display: inline-block">
-              <span>{{ pageItem.meta?.title}}</span>
+              <span>{{ pageItem.meta?.title }}</span>
             </div>
             <template #overlay>
               <Menu style="user-select: none">

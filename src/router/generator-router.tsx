@@ -1,9 +1,9 @@
-import router, { routes } from '@/router';
-import staticRoutes from "./modules";
+import staticRoutes from './modules';
 import { REDIRECT_ROUTE } from './modules/besidesLayout';
 import { notFound, errorRoute } from './modules/error';
-import type { RouteRecordRaw } from 'vue-router';
 import outsideLayout from './outsideLayout';
+import type { RouteRecordRaw } from 'vue-router';
+import router, { routes } from '@/router';
 
 // 需要放在所有路由之后的路由
 const endRoutes: RouteRecordRaw[] = [REDIRECT_ROUTE, errorRoute, notFound];

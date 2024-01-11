@@ -11,10 +11,10 @@
   import { useFullscreen } from '@vueuse/core';
   import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue';
   import { Tooltip } from 'ant-design-vue';
-  
+
   const { toggle, isFullscreen } = useFullscreen();
 
   const getTitle = computed(() => {
-    return unref(isFullscreen)? '退出全屏': '全屏';
+    return unref(isFullscreen) ? '退出全屏' : '全屏';
   });
 </script>

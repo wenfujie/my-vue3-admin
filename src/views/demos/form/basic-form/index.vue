@@ -1,12 +1,6 @@
 <template>
   <div>
-    <Alert
-      message="基础表单示例"
-      type="info"
-      show-icon
-      style="margin-bottom: 12px"
-    >
-    </Alert>
+    <Alert message="基础表单示例" type="info" show-icon style="margin-bottom: 12px"> </Alert>
     <a-card>
       <SchemaForm @submit="handleSubmit">
         <template #selectA="{ formModel, field }">
@@ -57,85 +51,85 @@
 </template>
 
 <script lang="tsx" setup>
-import { computed, ref, unref } from "vue";
-import { cloneDeep } from "lodash-es";
-import { Alert, message, Select } from "ant-design-vue";
-import { schemas } from "./form-schema";
-import { useForm, ApiSelect } from "@/components/core/schema-form";
-import { waitTime } from "@/views/demos/util";
+  import { computed, ref, unref } from 'vue';
+  import { cloneDeep } from 'lodash-es';
+  import { Alert, message, Select } from 'ant-design-vue';
+  import { schemas } from './form-schema';
+  import { useForm, ApiSelect } from '@/components/core/schema-form';
+  import { waitTime } from '@/views/demos/util';
 
-defineOptions({
-  name: "DemosFormBasicForm",
-});
+  defineOptions({
+    name: 'DemosFormBasicForm',
+  });
 
-const optionsListApi = async (params) => {
-  await waitTime(1000);
-  const list = [
-    { name: "选项0", id: "0" },
-    { name: "选项1", id: "1" },
-    { name: "选项2", id: "2" },
-  ];
-  if (params?.keyword) {
-    return list.filter(({ name }) => name.includes(params.keyword));
+  const optionsListApi = async (params) => {
+    await waitTime(1000);
+    const list = [
+      { name: '选项0', id: '0' },
+      { name: '选项1', id: '1' },
+      { name: '选项2', id: '2' },
+    ];
+    if (params?.keyword) {
+      return list.filter(({ name }) => name.includes(params.keyword));
+    }
+    return list;
+  };
+
+  const [SchemaForm] = useForm({
+    labelWidth: 200,
+    schemas,
+    actionColOptions: {
+      span: 24,
+    },
+  });
+
+  const keyword = ref<string>('');
+
+  const valueSelectA = ref<string[]>([]);
+  const valueSelectB = ref<string[]>([]);
+  const options = ref<Recordable[]>([]);
+  options.value = Array.from({ length: 10 }).map((_, i) => ({
+    label: `选项${i}`,
+    value: `${i}`,
+  }));
+
+  const optionsA = computed(() => {
+    return cloneDeep(unref(options)).map((op) => {
+      op.disabled = unref(valueSelectB).indexOf(op.value) !== -1;
+      return op;
+    });
+  });
+  const optionsB = computed(() => {
+    return cloneDeep(unref(options)).map((op) => {
+      op.disabled = unref(valueSelectA).indexOf(op.value) !== -1;
+      return op;
+    });
+  });
+
+  const searchParams = computed<Recordable>(() => {
+    return { keyword: unref(keyword) };
+  });
+
+  function onSearch(value: string) {
+    keyword.value = value;
   }
-  return list;
-};
 
-const [SchemaForm] = useForm({
-  labelWidth: 200,
-  schemas,
-  actionColOptions: {
-    span: 24,
-  },
-});
-
-const keyword = ref<string>("");
-
-const valueSelectA = ref<string[]>([]);
-const valueSelectB = ref<string[]>([]);
-const options = ref<Recordable[]>([]);
-options.value = Array.from({ length: 10 }).map((_, i) => ({
-  label: `选项${i}`,
-  value: `${i}`,
-}));
-
-const optionsA = computed(() => {
-  return cloneDeep(unref(options)).map((op) => {
-    op.disabled = unref(valueSelectB).indexOf(op.value) !== -1;
-    return op;
-  });
-});
-const optionsB = computed(() => {
-  return cloneDeep(unref(options)).map((op) => {
-    op.disabled = unref(valueSelectA).indexOf(op.value) !== -1;
-    return op;
-  });
-});
-
-const searchParams = computed<Recordable>(() => {
-  return { keyword: unref(keyword) };
-});
-
-function onSearch(value: string) {
-  keyword.value = value;
-}
-
-// 点击提交
-function handleSubmit(values) {
-  message.success(
-    <div>
-      验证通过！<pre class="text-left">{JSON.stringify(values, null, 2)}</pre>
-    </div>,
-    3
-  );
-  console.log("values", values);
-}
+  // 点击提交
+  function handleSubmit(values) {
+    message.success(
+      <div>
+        验证通过！<pre class="text-left">{JSON.stringify(values, null, 2)}</pre>
+      </div>,
+      3,
+    );
+    console.log('values', values);
+  }
 </script>
 
 <style lang="less" scoped>
-.btn-rows {
-  button {
-    margin-right: 12px;
+  .btn-rows {
+    button {
+      margin-right: 12px;
+    }
   }
-}
 </style>

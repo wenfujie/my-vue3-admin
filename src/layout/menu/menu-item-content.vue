@@ -4,16 +4,16 @@
 </template>
 
 <script lang="ts" setup>
-import type { RouteRecordRaw } from "vue-router";
+  import type { RouteRecordRaw } from 'vue-router';
 
-defineOptions({
-  name: "MenuItemContent",
-});
+  defineOptions({
+    name: 'MenuItemContent',
+  });
 
-defineProps({
-  item: {
-    type: Object as PropType<RouteRecordRaw>,
-    default: () => ({}),
-  },
-});
+  defineProps({
+    item: {
+      type: Object as PropType<RouteRecordRaw>,
+      default: () => ({}),
+    },
+  });
 </script>

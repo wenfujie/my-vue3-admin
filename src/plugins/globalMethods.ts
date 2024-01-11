@@ -1,4 +1,4 @@
-import type { App } from "vue";
+import type { App } from 'vue';
 /**
  * 注册全局方法
  * @param app

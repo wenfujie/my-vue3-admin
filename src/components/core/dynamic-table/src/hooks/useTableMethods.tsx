@@ -1,12 +1,12 @@
 import { unref, nextTick, getCurrentInstance } from 'vue';
-import { isObject, isFunction } from 'lodash-es';
+import { isObject, isAsyncFunction, isBoolean } from '@/utils/is';
+import { isFunction } from 'lodash-es';
 import { useInfiniteScroll } from '@vueuse/core';
 import { useEditable } from './useEditable';
 import type { DynamicTableProps, DynamicTableEmitFn } from '../dynamic-table';
 import type { OnChangeCallbackParams, TableColumn } from '../types/';
 import type { Pagination, TableState } from './useTableState';
 import type { FormProps } from 'ant-design-vue';
-import { isAsyncFunction, isBoolean } from '@/utils/is';
 
 export type UseInfiniteScrollParams = Parameters<typeof useInfiniteScroll>;
 

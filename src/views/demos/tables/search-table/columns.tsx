@@ -1,18 +1,18 @@
-import { debounce } from "lodash-es";
-import { Tag } from "ant-design-vue";
-import type { TableColumn } from "@/components/core/dynamic-table";
-import { waitTime } from "@/views/demos/util";
+import { debounce } from 'lodash-es';
+import { Tag } from 'ant-design-vue';
+import type { TableColumn } from '@/components/core/dynamic-table';
+import { waitTime } from '@/views/demos/util';
 
-const names = ["王路飞", "王大蛇", "李白", "刺客伍六七"];
+const names = ['王路飞', '王大蛇', '李白', '刺客伍六七'];
 
-export const fetchStatusMapData = (keyword = "") => {
+export const fetchStatusMapData = (keyword = '') => {
   const data = [
     {
-      label: "已售罄",
+      label: '已售罄',
       value: 0,
     },
     {
-      label: "热卖中",
+      label: '热卖中',
       value: 1,
     },
   ].filter((n) => n.label.includes(keyword));
@@ -24,11 +24,11 @@ export const getClothesByGender = (gender: number) => {
     // 男
     return [
       {
-        label: "西装",
+        label: '西装',
         value: 1,
       },
       {
-        label: "领带",
+        label: '领带',
         value: 0,
       },
     ];
@@ -36,11 +36,11 @@ export const getClothesByGender = (gender: number) => {
     //女
     return [
       {
-        label: "裙子",
+        label: '裙子',
         value: 1,
       },
       {
-        label: "包包",
+        label: '包包',
         value: 0,
       },
     ];
@@ -57,7 +57,7 @@ export const tableData = Array.from({ length: 30 }).map((_, i) => {
     clothes: getClothesByGender(gender)[~~(Math.random() * 2)].label,
     price: ~~(Math.random() * 1000),
     gender,
-    img: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    img: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     status: ~~(Math.random() * 2),
   };
 });
@@ -67,75 +67,75 @@ export type ListItemType = (typeof tableData)[number];
 // 使用TableColumn<ListItemType> 将会限制dataIndex的类型，但换来的是dataIndex有类型提示
 export const columns: TableColumn<ListItemType>[] = [
   {
-    title: "姓名",
-    align: "center",
-    dataIndex: "name",
+    title: '姓名',
+    align: 'center',
+    dataIndex: 'name',
     sorter: true,
     width: 300,
     resizable: true,
     formItemProps: {
-      defaultValue: "李白",
+      defaultValue: '李白',
       required: true,
     },
   },
   {
-    title: "性别",
-    align: "center",
-    dataIndex: "gender",
+    title: '性别',
+    align: 'center',
+    dataIndex: 'gender',
     width: 120,
     resizable: true,
     formItemProps: {
-      component: "Select",
+      component: 'Select',
       componentProps: ({ formInstance, formModel, tableInstance }) => ({
         options: [
           {
-            label: "男",
+            label: '男',
             value: 1,
           },
           {
-            label: "女",
+            label: '女',
             value: 0,
           },
         ],
         onChange() {
-          console.log("tableInstance", tableInstance?.reload());
+          console.log('tableInstance', tableInstance?.reload());
 
           // 根据当前选择的性别，更新衣服可选项
           formInstance?.updateSchema({
-            field: "clothes",
+            field: 'clothes',
             componentProps: {
               options: getClothesByGender(formModel.gender),
             },
           });
-          formModel["clothes"] = undefined;
+          formModel['clothes'] = undefined;
         },
       }),
     },
-    customRender: ({ record }) => ["女", "男"][record.gender],
+    customRender: ({ record }) => ['女', '男'][record.gender],
   },
   {
-    title: "衣服",
-    align: "center",
-    dataIndex: "clothes",
+    title: '衣服',
+    align: 'center',
+    dataIndex: 'clothes',
     formItemProps: {
-      component: "Select",
+      component: 'Select',
     },
   },
   {
-    title: "价格",
-    align: "center",
-    dataIndex: "price",
+    title: '价格',
+    align: 'center',
+    dataIndex: 'price',
     formItemProps: {
-      component: "Select",
+      component: 'Select',
     },
     customRender: ({ record }) => `${record.price}元`,
   },
   {
-    title: "状态",
-    align: "center",
-    dataIndex: "status",
+    title: '状态',
+    align: 'center',
+    dataIndex: 'status',
     formItemProps: {
-      component: "Select",
+      component: 'Select',
       componentProps: ({ formInstance, schema }) => ({
         showSearch: true,
         filterOption: false,
@@ -145,27 +145,25 @@ export const columns: TableColumn<ListItemType>[] = [
         onSearch: debounce(async (keyword) => {
           schema.loading = true;
           const newSchema = {
-            field: "status",
+            field: 'status',
             componentProps: {
               options: [] as LabelValueOptions,
             },
           };
           formInstance?.updateSchema([newSchema]);
-          console.log("onSearch keyword", keyword);
-          const result = await fetchStatusMapData(keyword).finally(
-            () => (schema.loading = false)
-          );
+          console.log('onSearch keyword', keyword);
+          const result = await fetchStatusMapData(keyword).finally(() => (schema.loading = false));
           newSchema.componentProps.options = result;
           formInstance?.updateSchema([newSchema]);
         }, 500),
         onChange(value: string) {
-          console.log("onChange", value);
+          console.log('onChange', value);
         },
       }),
     },
     customRender: ({ record }) => (
-      <Tag color={record.status == 1 ? "red" : "default"}>
-        {["已售罄", "热卖中"][record.status]}
+      <Tag color={record.status == 1 ? 'red' : 'default'}>
+        {['已售罄', '热卖中'][record.status]}
       </Tag>
     ),
   },

@@ -22,38 +22,38 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import { EnterOutlined, BookOutlined } from "@ant-design/icons-vue";
-import type { RouteRecordRaw } from "vue-router";
+  import { computed } from 'vue';
+  import { EnterOutlined, BookOutlined } from '@ant-design/icons-vue';
+  import type { RouteRecordRaw } from 'vue-router';
 
-interface Props {
-  value: string;
-  options: RouteRecordRaw[];
-}
+  interface Props {
+    value: string;
+    options: RouteRecordRaw[];
+  }
 
-interface Emits {
-  (e: "update:value", val: string): void;
-  (e: "enter"): void;
-}
+  interface Emits {
+    (e: 'update:value', val: string): void;
+    (e: 'enter'): void;
+  }
 
-const props = withDefaults(defineProps<Props>(), {});
-const emit = defineEmits<Emits>();
+  const props = withDefaults(defineProps<Props>(), {});
+  const emit = defineEmits<Emits>();
 
-const active = computed({
-  get() {
-    return props.value;
-  },
-  set(val: string) {
-    emit("update:value", val);
-  },
-});
-/** 鼠标移入 */
-async function handleMouse(item: RouteRecordRaw) {
-  active.value = item.name as string;
-}
+  const active = computed({
+    get() {
+      return props.value;
+    },
+    set(val: string) {
+      emit('update:value', val);
+    },
+  });
+  /** 鼠标移入 */
+  async function handleMouse(item: RouteRecordRaw) {
+    active.value = item.name as string;
+  }
 
-function handleTo() {
-  emit("enter");
-}
+  function handleTo() {
+    emit('enter');
+  }
 </script>
 <style lang="less" scoped></style>

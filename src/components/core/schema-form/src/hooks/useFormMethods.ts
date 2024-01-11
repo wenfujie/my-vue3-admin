@@ -1,16 +1,10 @@
-import { unref } from "vue";
-import { set } from "lodash-es";
-import type { FormState } from "./useFormState";
-import type { SchemaFormProps } from "../schema-form";
-import { deepMerge } from "../util";
-import {
-  isFunction,
-  isNullOrUnDef,
-  isObject,
-  isArray,
-  isString,
-} from "@/utils/is";
-import { dateUtil } from "@/utils/dateUtil";
+import { unref } from 'vue';
+import { set } from 'lodash-es';
+import { deepMerge } from '../util';
+import type { FormState } from './useFormState';
+import type { SchemaFormProps } from '../schema-form';
+import { isFunction, isNullOrUnDef, isObject, isArray, isString } from '@/utils/is';
+import { dateUtil } from '@/utils/dateUtil';
 
 type UseFormMethodsContext = FormState;
 
@@ -41,7 +35,7 @@ export const useFormMethods = (formMethodsContext: UseFormMethodsContext) => {
     formModel[key] = value;
     cacheFormModel[key] = value;
     const { validateTrigger } = unref(getFormProps);
-    if (!validateTrigger || validateTrigger === "change") {
+    if (!validateTrigger || validateTrigger === 'change') {
       schemaFormRef.value?.validateFields([key]);
     }
   };
@@ -94,11 +88,7 @@ export const useFormMethods = (formMethodsContext: UseFormMethodsContext) => {
       return values;
     }
 
-    for (const [
-      field,
-      [startTimeKey, endTimeKey],
-      format = "YYYY-MM-DD",
-    ] of fieldMapToTime) {
+    for (const [field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD'] of fieldMapToTime) {
       if (!field || !startTimeKey || !endTimeKey || !values[field]) {
         continue;
       }

@@ -10,10 +10,7 @@
       @toggle-advanced="(e) => $emit('toggle-advanced', e)"
       @submit="handleSubmit"
     >
-      <template
-        v-for="item of getFormSlotKeys"
-        #[replaceFormSlotKey(item)]="data"
-      >
+      <template v-for="item of getFormSlotKeys" #[replaceFormSlotKey(item)]="data">
         <slot :name="item" v-bind="data || {}"></slot>
       </template>
     </SchemaForm>
@@ -44,11 +41,7 @@
           :data-source="tableData"
           @change="handleTableChange"
         >
-          <template
-            v-for="(_, slotName) of $slots"
-            #[slotName]="slotData"
-            :key="slotName"
-          >
+          <template v-for="(_, slotName) of $slots" #[slotName]="slotData" :key="slotName">
             <slot :name="slotName" v-bind="slotData"></slot>
           </template>
           <template #bodyCell="slotData">
@@ -61,113 +54,101 @@
 </template>
 
 <script lang="tsx" setup>
-import { useSlots } from "vue";
-import { Table } from "ant-design-vue";
-import {
-  useTableMethods,
-  createTableContext,
-  useTableForm,
-  useTableState,
-  useColumns,
-  useEditable,
-} from "./hooks";
-import { ToolBar } from "./components";
-import { dynamicTableProps, dynamicTableEmits } from "./dynamic-table";
-import type { TableActionType } from "./types";
-import { SchemaForm } from "@/components/core/schema-form";
+  import { useSlots } from 'vue';
+  import { Table } from 'ant-design-vue';
+  import {
+    useTableMethods,
+    createTableContext,
+    useTableForm,
+    useTableState,
+    useColumns,
+    useEditable,
+  } from './hooks';
+  import { ToolBar } from './components';
+  import { dynamicTableProps, dynamicTableEmits } from './dynamic-table';
+  import type { TableActionType } from './types';
+  import { SchemaForm } from '@/components/core/schema-form';
 
-defineOptions({
-  name: "DynamicTable",
-  inheritAttrs: false,
-});
+  defineOptions({
+    name: 'DynamicTable',
+    inheritAttrs: false,
+  });
 
-const props = defineProps(dynamicTableProps);
-const emit = defineEmits(dynamicTableEmits);
-const slots = useSlots();
+  const props = defineProps(dynamicTableProps);
+  const emit = defineEmits(dynamicTableEmits);
+  const slots = useSlots();
 
-// 表格内部状态
-const tableState = useTableState({ props, slots });
-const {
-  tableRef,
-  tableData,
-  queryFormRef,
-  editTableFormRef,
-  getBindValues,
-  editFormModel,
-} = tableState;
-// 表格内部方法
-const tableMethods = useTableMethods({ state: tableState, props, emit });
-const {
-  setProps,
-  fetchData,
-  handleSubmit,
-  reload,
-  handleTableChange,
-  handleEditFormValidate,
-} = tableMethods;
-// 控制编辑行
-const editableHooks = useEditable({ props, state: tableState });
-/** 表格scroll */
+  // 表格内部状态
+  const tableState = useTableState({ props, slots });
+  const { tableRef, tableData, queryFormRef, editTableFormRef, getBindValues, editFormModel } =
+    tableState;
+  // 表格内部方法
+  const tableMethods = useTableMethods({ state: tableState, props, emit });
+  const { setProps, fetchData, handleSubmit, reload, handleTableChange, handleEditFormValidate } =
+    tableMethods;
+  // 控制编辑行
+  const editableHooks = useEditable({ props, state: tableState });
+  /** 表格scroll */
 
-const tableAction: TableActionType = {
-  setProps,
-  reload,
-  fetchData,
-  ...editableHooks,
-};
+  const tableAction: TableActionType = {
+    setProps,
+    reload,
+    fetchData,
+    ...editableHooks,
+  };
 
-// 表格列的配置描述
-const { innerColumns } = useColumns({
-  props,
-  slots,
-  state: tableState,
-  methods: tableMethods,
-  tableAction,
-});
+  // 表格列的配置描述
+  const { innerColumns } = useColumns({
+    props,
+    slots,
+    state: tableState,
+    methods: tableMethods,
+    tableAction,
+  });
 
-// 搜索表单
-const { getFormProps, replaceFormSlotKey, getFormSlotKeys } = useTableForm({
-  tableState,
-  tableMethods,
-  slots,
-});
+  // 搜索表单
+  const { getFormProps, replaceFormSlotKey, getFormSlotKeys } = useTableForm({
+    tableState,
+    tableMethods,
+    slots,
+  });
 
-// 当前组件所有的状态和方法
-const instance = {
-  ...props,
-  ...tableState,
-  ...tableMethods,
-  ...editableHooks,
-  emit,
-};
+  // 当前组件所有的状态和方法
+  const instance = {
+    ...props,
+    ...tableState,
+    ...tableMethods,
+    ...editableHooks,
+    emit,
+  };
 
-createTableContext(instance);
+  createTableContext(instance);
 
-fetchData();
+  fetchData();
 
-defineExpose(instance);
+  defineExpose(instance);
 </script>
 
 <style lang="less" scoped>
-:deep(.ant-table-wrapper) {
-  padding: 0 6px 6px;
+  :deep(.ant-table-wrapper) {
+    padding: 0 6px 6px;
 
-  .ant-table {
-    .ant-table-title {
-      display: flex;
-    }
+    .ant-table {
+      .ant-table-title {
+        display: flex;
+      }
 
-    .ant-image:hover {
-      cursor: zoom-in;
-    }
+      .ant-image:hover {
+        cursor: zoom-in;
+      }
 
-    .ant-btn {
-      margin-right: 10px;
+      .ant-btn {
+        margin-right: 10px;
+      }
     }
   }
-}
 
-.actions > * {
-  margin-right: 10px;
-}
+  .actions > * {
+    margin-right: 10px;
+  }
 </style>

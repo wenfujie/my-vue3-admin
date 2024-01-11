@@ -1,10 +1,10 @@
-import axios from "axios";
-import { message as $message } from "ant-design-vue";
-import type { AxiosRequestConfig } from "axios";
-import { ACCESS_TOKEN_KEY } from "@/enums/cacheEnum";
-import { Storage } from "@/utils/Storage";
+import axios from 'axios';
+import { message as $message } from 'ant-design-vue';
+import type { AxiosRequestConfig } from 'axios';
+import { ACCESS_TOKEN_KEY } from '@/enums/cacheEnum';
+import { Storage } from '@/utils/Storage';
 
-const UNKNOWN_ERROR = "未知错误，请重试";
+const UNKNOWN_ERROR = '未知错误，请重试';
 
 /** 真实请求的路径前缀 */
 const baseApiUrl = import.meta.env.VITE_BASE_API;
@@ -21,13 +21,13 @@ service.interceptors.request.use(
     const token = Storage.get(ACCESS_TOKEN_KEY);
     if (token && config.headers) {
       // 请求头token信息，请根据实际情况进行修改
-      config.headers["Authorization"] = token;
+      config.headers['Authorization'] = token;
     }
     return config;
   },
   (error) => {
     Promise.reject(error);
-  }
+  },
 );
 
 service.interceptors.response.use(
@@ -49,7 +49,7 @@ service.interceptors.response.use(
     $message.error({ content: errMsg, key: errMsg });
     error.message = errMsg;
     return Promise.reject(error);
-  }
+  },
 );
 
 export interface RequestOptions {
@@ -73,7 +73,7 @@ export type BaseResponse<T = any> = Promise<Response<T>>;
  */
 export const request = async <T = any>(
   config: AxiosRequestConfig,
-  options: RequestOptions = {}
+  options: RequestOptions = {},
 ): Promise<T> => {
   const { isMock } = options;
   config.url = `${(isMock ? baseMockUrl : baseApiUrl) + config.url}`;

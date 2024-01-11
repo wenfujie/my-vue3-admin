@@ -1,13 +1,10 @@
-import { reactive, computed, watchPostEffect } from "vue";
-import { defineStore } from "pinia";
-import { theme as antdTheme } from "ant-design-vue";
-import type { ThemeConfig } from "ant-design-vue/es/config-provider/context";
-import { THEME_KEY } from "@/enums/cacheEnum";
-import { Storage } from "@/utils/Storage";
-import {
-  themeColor,
-  type ThemeColor,
-} from "@/layout/header/components/setting/constant";
+import { reactive, computed, watchPostEffect } from 'vue';
+import { defineStore } from 'pinia';
+import { theme as antdTheme } from 'ant-design-vue';
+import type { ThemeConfig } from 'ant-design-vue/es/config-provider/context';
+import { THEME_KEY } from '@/enums/cacheEnum';
+import { Storage } from '@/utils/Storage';
+import { themeColor, type ThemeColor } from '@/layout/header/components/setting/constant';
 
 /**
  * 项目默认配置项
@@ -23,8 +20,8 @@ import {
 export type LayoutSetting = {
   navTheme: ThemeColor; // theme for nav menu
   colorPrimary: string; // '#F5222D', // primary color of ant design
-  layout: "sidemenu" | "topmenu"; // nav menu position: `sidemenu` or `topmenu`
-  contentWidth: "Fluid" | "Fixed"; // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
+  layout: 'sidemenu' | 'topmenu'; // nav menu position: `sidemenu` or `topmenu`
+  contentWidth: 'Fluid' | 'Fixed'; // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
   fixedHeader: false; // sticky header
   fixSiderbar: false; // sticky siderbar
   colorWeak: false;
@@ -38,30 +35,29 @@ export type LayoutSetting = {
 };
 
 export const defaultSetting: LayoutSetting = {
-  navTheme: "dark", // theme for nav menu
-  colorPrimary: "#1677FF", // '#F5222D', // primary color of ant design
-  layout: "sidemenu", // nav menu position: `sidemenu` or `topmenu`
-  contentWidth: "Fluid", // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
+  navTheme: 'dark', // theme for nav menu
+  colorPrimary: '#1677FF', // '#F5222D', // primary color of ant design
+  layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
+  contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
   fixedHeader: false, // sticky header
   fixSiderbar: false, // sticky siderbar
   colorWeak: false,
   menu: {
     locale: true,
   },
-  title: "vite-antdv-admin",
+  title: 'vite-antdv-admin',
   pwa: false,
-  iconfontUrl: "",
+  iconfontUrl: '',
   // production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
 };
 
-export const useLayoutSettingStore = defineStore("layout-setting", () => {
+export const useLayoutSettingStore = defineStore('layout-setting', () => {
   const localLayoutSetting = Storage.get<LayoutSetting>(THEME_KEY, {});
 
   const layoutSetting = reactive({ ...defaultSetting, ...localLayoutSetting });
 
   const themeConfig = reactive<ThemeConfig>({
-    algorithm:
-      themeColor[layoutSetting.navTheme!] || antdTheme.defaultAlgorithm,
+    algorithm: themeColor[layoutSetting.navTheme!] || antdTheme.defaultAlgorithm,
     token: {
       colorPrimary: layoutSetting.colorPrimary,
     },
@@ -84,10 +80,10 @@ export const useLayoutSettingStore = defineStore("layout-setting", () => {
 
   // 切换主题
   const toggleTheme = (navTheme: ThemeColor) => {
-    if (navTheme === "realDark") {
-      document.documentElement.classList.add("dark");
+    if (navTheme === 'realDark') {
+      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove('dark');
     }
     themeConfig.algorithm = themeColor[navTheme];
   };

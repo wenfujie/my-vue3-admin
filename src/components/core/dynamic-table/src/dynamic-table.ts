@@ -1,6 +1,6 @@
-import { tableProps } from "ant-design-vue/es/table";
-import type DynamicTable from "./dynamic-table.vue";
-import type { PropType, ExtractPropTypes } from "vue";
+import { tableProps } from 'ant-design-vue/es/table';
+import type DynamicTable from './dynamic-table.vue';
+import type { PropType, ExtractPropTypes } from 'vue';
 import type {
   LoadDataParams,
   TableColumn,
@@ -8,16 +8,16 @@ import type {
   EditableType,
   OnSave,
   OnCancel,
-} from "./types/";
-import type { SchemaFormProps } from "@/components/core/schema-form";
-import type { GetRowKey } from "ant-design-vue/es/table/interface";
-import { isBoolean } from "@/utils/is";
+} from './types/';
+import type { SchemaFormProps } from '@/components/core/schema-form';
+import type { GetRowKey } from 'ant-design-vue/es/table/interface';
+import { isBoolean } from '@/utils/is';
 
 export const dynamicTableProps = {
   ...tableProps(),
   rowKey: {
     type: [String, Function] as PropType<string | GetRowKey<any>>,
-    default: "id",
+    default: 'id',
   },
   /** 是否显示搜索表单 */
   search: {
@@ -39,10 +39,7 @@ export const dynamicTableProps = {
   dataRequest: {
     // 获取列表数据函数API
     type: Function as PropType<
-      (
-        params?: LoadDataParams,
-        onChangeParams?: OnChangeCallbackParams
-      ) => Promise<any>
+      (params?: LoadDataParams, onChangeParams?: OnChangeCallbackParams) => Promise<any>
     >,
   },
   /** 是否显示索引号 */
@@ -89,10 +86,7 @@ export const dynamicTableProps = {
   /** 自定义数据导出格式函数 */
   exportFormatter: {
     type: Function as PropType<
-      (
-        columns: TableColumn[],
-        tableData: any[]
-      ) => { header: string[]; data: any[] }
+      (columns: TableColumn[], tableData: any[]) => { header: string[]; data: any[] }
     >,
     default: null,
   },
@@ -104,7 +98,7 @@ export const dynamicTableProps = {
    */
   editableType: {
     type: String as PropType<EditableType>,
-    default: "single",
+    default: 'single',
   },
   /** 单元格保存编辑回调 */
   onSave: {
@@ -122,7 +116,7 @@ export type DynamicTableProps = ExtractPropTypes<typeof dynamicTableProps>;
 
 export const dynamicTableEmits = {
   change: (...rest: OnChangeCallbackParams) => rest.length === 4,
-  "toggle-advanced": (isAdvanced: boolean) => isBoolean(isAdvanced),
+  'toggle-advanced': (isAdvanced: boolean) => isBoolean(isAdvanced),
 };
 
 export type DynamicTableEmits = typeof dynamicTableEmits;

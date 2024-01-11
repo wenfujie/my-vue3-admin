@@ -1,4 +1,4 @@
-import type { CSSProperties, WatchOptions } from "vue";
+import type { CSSProperties, WatchOptions } from 'vue';
 import type {
   InputNumberProps,
   InputProps,
@@ -16,10 +16,10 @@ import type {
   UploadProps,
   DatePickerProps,
   CheckboxProps,
-} from "ant-design-vue";
-import type { RenderCallbackParams } from "./form";
+} from 'ant-design-vue';
+import type { RenderCallbackParams } from './form';
 
-export type { ComponentMapType } from "../componentMap";
+export type { ComponentMapType } from '../componentMap';
 
 type ColSpanType = number | string;
 

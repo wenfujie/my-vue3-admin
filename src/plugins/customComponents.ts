@@ -1,6 +1,6 @@
-import type { App } from "vue";
-import { IconFont } from "@/components/basic/iconfont";
-import { SvgIcon } from "@/components/basic/svg-icon";
+import type { App } from 'vue';
+import { IconFont } from '@/components/basic/iconfont';
+import { SvgIcon } from '@/components/basic/svg-icon';
 
 /**
  * 全局注册自定义组件

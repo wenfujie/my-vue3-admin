@@ -1,21 +1,18 @@
-import { isNavigationFailure } from "vue-router";
-import NProgress from "nprogress"; // progress bar
-import { LOGIN_NAME, REDIRECT_NAME } from "./constant";
-import type { WhiteNameList } from "./constant";
-import type { Router, RouteLocationNormalized } from "vue-router";
-import { useUserStore } from "@/store/modules/user";
-import { useKeepAliveStore } from "@/store/modules/keepAlive";
-import { ACCESS_TOKEN_KEY } from "@/enums/cacheEnum";
-import { Storage } from "@/utils/Storage";
+import { isNavigationFailure } from 'vue-router';
+import NProgress from 'nprogress'; // progress bar
+import { LOGIN_NAME, REDIRECT_NAME } from './constant';
+import type { WhiteNameList } from './constant';
+import type { Router, RouteLocationNormalized } from 'vue-router';
+import { useUserStore } from '@/store/modules/user';
+import { useKeepAliveStore } from '@/store/modules/keepAlive';
+import { ACCESS_TOKEN_KEY } from '@/enums/cacheEnum';
+import { Storage } from '@/utils/Storage';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-const defaultRoutePath = "/dashboard";
+const defaultRoutePath = '/dashboard';
 
-export function createRouterGuards(
-  router: Router,
-  whiteNameList: WhiteNameList
-) {
+export function createRouterGuards(router: Router, whiteNameList: WhiteNameList) {
   router.beforeEach(async (to, _, next) => {
     NProgress.start(); // start progress bar
     const userStore = useUserStore();
@@ -72,7 +69,7 @@ export function createRouterGuards(
     const token = Storage.get(ACCESS_TOKEN_KEY, null);
 
     if (isNavigationFailure(failure)) {
-      console.error("failed navigation", failure);
+      console.error('failed navigation', failure);
     }
     // 在这里设置需要缓存的组件名称
     const toCompName = getComponentName(to);
@@ -83,7 +80,7 @@ export function createRouterGuards(
         keepAliveStore.add(toCompName);
       } else {
         console.warn(
-          `${to.fullPath}页面组件的keepAlive为true但未设置组件名，会导致缓存失效，请检查`
+          `${to.fullPath}页面组件的keepAlive为true但未设置组件名，会导致缓存失效，请检查`,
         );
       }
     } else {
@@ -105,6 +102,6 @@ export function createRouterGuards(
   });
 
   router.onError((error) => {
-    console.log(error, "路由错误");
+    console.log(error, '路由错误');
   });
 }

@@ -1,20 +1,17 @@
-import type { RouteRecordRaw } from "vue-router";
-import RouterView from "@/layout/routerView/index.vue";
+import type { RouteRecordRaw } from 'vue-router';
 
-const moduleName = "dashboard";
+const moduleName = 'dashboard';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "dashboard",
+    path: 'dashboard',
     name: `${moduleName}-welcome`,
     meta: {
-      title: "首页",
-      icon: "icon-shouye",
+      title: '首页',
+      icon: 'icon-shouye',
     },
     component: () =>
-      import(
-        /* webpackChunkName: "dashboard-welcome" */ "@/views/dashboard/index.vue"
-      ),
+      import(/* webpackChunkName: "dashboard-welcome" */ '@/views/dashboard/index.vue'),
   },
 ];
 

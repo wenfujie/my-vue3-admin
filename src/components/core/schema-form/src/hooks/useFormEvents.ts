@@ -1,17 +1,17 @@
-import { unref, toRaw } from "vue";
-import { cloneDeep, uniqBy } from "lodash-es";
-import dayjs from "dayjs";
-import { dateItemType, handleInputNumberValue } from "../helper";
-import type { FormSchema } from "../types/form";
-import type { NamePath } from "ant-design-vue/lib/form/interface";
-import type { FormState, FormMethods } from "./index";
-import type { SchemaFormEmitFn } from "../schema-form";
-import { isArray, isFunction, isObject, isString } from "@/utils/is";
-import { deepMerge } from "../util";
+import { unref, toRaw } from 'vue';
+import { cloneDeep, uniqBy } from 'lodash-es';
+import dayjs from 'dayjs';
+import { dateItemType, handleInputNumberValue } from '../helper';
+import { deepMerge } from '../util';
+import type { FormSchema } from '../types/form';
+import type { NamePath } from 'ant-design-vue/lib/form/interface';
+import type { FormState, FormMethods } from './index';
+import type { SchemaFormEmitFn } from '../schema-form';
+import { isArray, isFunction, isObject, isString } from '@/utils/is';
 
 type UseFormActionContext = FormState & {
   emit: SchemaFormEmitFn;
-  handleFormValues: FormMethods["handleFormValues"];
+  handleFormValues: FormMethods['handleFormValues'];
 };
 
 export type FormEvents = ReturnType<typeof useFormEvents>;
@@ -81,11 +81,7 @@ export function useFormEvents(formActionContext: UseFormActionContext) {
             if (isFunction(componentProps)) {
               _props = _props({ formPropsRef, formModel });
             }
-            formModel[key] = value
-              ? _props?.valueFormat
-                ? value
-                : dayjs(value)
-              : null;
+            formModel[key] = value ? (_props?.valueFormat ? value : dayjs(value)) : null;
           }
         } else {
           formModel[key] = value;
@@ -96,9 +92,7 @@ export function useFormEvents(formActionContext: UseFormActionContext) {
     validateFields(validKeys);
   }
 
-  async function resetSchema(
-    data: Partial<FormSchema> | Partial<FormSchema>[]
-  ) {
+  async function resetSchema(data: Partial<FormSchema> | Partial<FormSchema>[]) {
     let updateData: Partial<FormSchema>[] = [];
     if (isObject(data)) {
       updateData.push(data as FormSchema);
@@ -113,16 +107,10 @@ export function useFormEvents(formActionContext: UseFormActionContext) {
   /**
    * @description: 插入到指定 filed 后面，如果没传指定 field，则插入到最后,当 first = true 时插入到第一个位置
    */
-  async function appendSchemaByField(
-    schemaItem: FormSchema,
-    prefixField?: string,
-    first = false
-  ) {
+  async function appendSchemaByField(schemaItem: FormSchema, prefixField?: string, first = false) {
     const schemaList = cloneDeep(unref(formSchemasRef));
 
-    const index = schemaList.findIndex(
-      (schema) => schema.field === prefixField
-    );
+    const index = schemaList.findIndex((schema) => schema.field === prefixField);
 
     if (!prefixField || index === -1 || first) {
       first ? schemaList.unshift(schemaItem) : schemaList.push(schemaItem);
@@ -186,14 +174,12 @@ export function useFormEvents(formActionContext: UseFormActionContext) {
     }
 
     const hasField = updateData.every(
-      (item) =>
-        item.component === "Divider" ||
-        (Reflect.has(item, "field") && item.field)
+      (item) => item.component === 'Divider' || (Reflect.has(item, 'field') && item.field),
     );
 
     if (!hasField) {
       console.error(
-        "All children of the form Schema array that need to be updated must contain the `field` field"
+        'All children of the form Schema array that need to be updated must contain the `field` field',
       );
       return;
     }
@@ -220,7 +206,7 @@ export function useFormEvents(formActionContext: UseFormActionContext) {
       });
     });
 
-    unref(formPropsRef).schemas = uniqBy(schemas, "field");
+    unref(formPropsRef).schemas = uniqBy(schemas, 'field');
   };
 
   async function resetFields(): Promise<void> {
@@ -231,7 +217,7 @@ export function useFormEvents(formActionContext: UseFormActionContext) {
       formModel[key] = defaultFormValues[key];
     });
 
-    emit("reset", formModel);
+    emit('reset', formModel);
     submitOnReset && handleSubmit();
     setTimeout(clearValidate);
   }
@@ -248,10 +234,7 @@ export function useFormEvents(formActionContext: UseFormActionContext) {
     await schemaFormRef.value?.clearValidate(name);
   }
 
-  async function scrollToField(
-    name: NamePath,
-    options?: ScrollOptions | undefined
-  ) {
+  async function scrollToField(name: NamePath, options?: ScrollOptions | undefined) {
     await schemaFormRef.value?.scrollToField(name, options);
   }
 
@@ -267,7 +250,7 @@ export function useFormEvents(formActionContext: UseFormActionContext) {
     try {
       const values = await validate();
       const res = handleFormValues(values);
-      emit("submit", res);
+      emit('submit', res);
       return res;
     } catch (error: any) {
       return Promise.reject(error);
@@ -277,9 +260,9 @@ export function useFormEvents(formActionContext: UseFormActionContext) {
   const handleEnterPress = (e: KeyboardEvent) => {
     const { autoSubmitOnEnter } = unref(formPropsRef);
     if (!autoSubmitOnEnter) return;
-    if (e.key === "Enter" && e.target && e.target instanceof HTMLElement) {
+    if (e.key === 'Enter' && e.target && e.target instanceof HTMLElement) {
       const target: HTMLElement = e.target as HTMLElement;
-      if (target && target.tagName && target.tagName.toUpperCase() == "INPUT") {
+      if (target && target.tagName && target.tagName.toUpperCase() == 'INPUT') {
         handleSubmit(e);
       }
     }

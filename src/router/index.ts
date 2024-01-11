@@ -1,20 +1,19 @@
-import "nprogress/css/nprogress.css"; // 进度条样式
-import { createRouter, createWebHashHistory } from "vue-router";
-import { LOGIN_NAME, whiteNameList } from "./constant";
-import type { App } from "vue";
-import type { RouteRecordRaw } from "vue-router";
-import outsideLayout from "./outsideLayout";
-import { createRouterGuards } from "./router-guards";
+import 'nprogress/css/nprogress.css'; // 进度条样式
+import { createRouter, createWebHashHistory } from 'vue-router';
+import { whiteNameList } from './constant';
+import outsideLayout from './outsideLayout';
+import { createRouterGuards } from './router-guards';
+import type { App } from 'vue';
+import type { RouteRecordRaw } from 'vue-router';
 
 export const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
-    name: "Layout",
-    redirect: "/dashboard",
-    component: () =>
-      import(/* webpackChunkName: "layout" */ "@/layout/index.vue"),
+    path: '/',
+    name: 'Layout',
+    redirect: '/dashboard',
+    component: () => import(/* webpackChunkName: "layout" */ '@/layout/index.vue'),
     meta: {
-      title: "首页",
+      title: '首页',
     },
     children: [],
   },
@@ -23,7 +22,7 @@ export const routes: Array<RouteRecordRaw> = [
 
 export const router = createRouter({
   // process.env.BASE_URL
-  history: createWebHashHistory(""),
+  history: createWebHashHistory(''),
   routes,
 });
 

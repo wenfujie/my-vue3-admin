@@ -1,23 +1,19 @@
-import { formProps, type FormProps } from "ant-design-vue/es/form";
-import type SchemaForm from "./schema-form.vue";
-import type { ColEx } from "./types/component";
-import type {
-  ExtractPropTypes,
-  ComponentInternalInstance,
-  CSSProperties,
-} from "vue";
-import type { FieldMapToTime, FormSchema, RowProps } from "./types/form";
-import type { TableActionType } from "@/components/core/dynamic-table";
-import { isObject } from "@/utils/is";
-import type { ButtonProps } from "./types/antd";
+import { formProps, type FormProps } from 'ant-design-vue/es/form';
+import type SchemaForm from './schema-form.vue';
+import type { ColEx } from './types/component';
+import type { ExtractPropTypes, ComponentInternalInstance, CSSProperties } from 'vue';
+import type { FieldMapToTime, FormSchema, RowProps } from './types/form';
+import type { TableActionType } from '@/components/core/dynamic-table';
+import type { ButtonProps } from './types/antd';
+import { isObject } from '@/utils/is';
 
 export const aFormPropKeys = Object.keys(formProps());
 
 export const schemaFormProps = {
   ...formProps(),
   layout: {
-    type: String as PropType<FormProps["layout"]>,
-    default: "horizontal",
+    type: String as PropType<FormProps['layout']>,
+    default: 'horizontal',
   },
   /** 预置字段默认值 */
   initialValues: {
@@ -66,7 +62,7 @@ export const schemaFormProps = {
   transformDateFunc: {
     type: Function as PropType<Fn>,
     default: (date: any) => {
-      return date?.format?.("YYYY-MM-DD HH:mm:ss") ?? date;
+      return date?.format?.('YYYY-MM-DD HH:mm:ss') ?? date;
     },
   },
   rulesMessageJoinLabel: { type: Boolean as PropType<boolean>, default: true },
@@ -109,11 +105,10 @@ export const schemaFormProps = {
 };
 
 export const schemaFormEmits = {
-  register: (exposed: ComponentInternalInstance["exposed"]) =>
-    isObject(exposed),
+  register: (exposed: ComponentInternalInstance['exposed']) => isObject(exposed),
   reset: (formModel: Recordable<any>) => isObject(formModel),
   submit: (formModel: Recordable<any>) => isObject(formModel),
-  "advanced-change": () => true,
+  'advanced-change': () => true,
 };
 
 export type SchemaFormEmits = typeof schemaFormEmits;

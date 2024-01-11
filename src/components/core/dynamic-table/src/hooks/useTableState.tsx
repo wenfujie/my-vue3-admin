@@ -1,12 +1,12 @@
-import { computed, ref, unref, watch } from "vue";
-import { omit } from "lodash-es";
-import { useScroll } from "./useScroll";
-import type { Slots } from "vue";
-import type { DynamicTableProps } from "../dynamic-table";
-import type { SchemaFormInstance } from "@/components/core/schema-form";
-import type { TableProps, Table } from "ant-design-vue";
+import { computed, ref, unref, watch } from 'vue';
+import { omit } from 'lodash-es';
+import { useScroll } from './useScroll';
+import type { Slots } from 'vue';
+import type { DynamicTableProps } from '../dynamic-table';
+import type { SchemaFormInstance } from '@/components/core/schema-form';
+import type { TableProps, Table } from 'ant-design-vue';
 
-export type Pagination = TableProps["pagination"];
+export type Pagination = TableProps['pagination'];
 export type TableState = ReturnType<typeof useTableState>;
 
 export type UseTableStateParams = {
@@ -44,7 +44,7 @@ export const useTableState = ({ props, slots }: UseTableStateParams) => {
       current: 1,
       pageSize: 10,
       total: 0,
-      pageSizeOptions: ["10", "20", "50", "100"],
+      pageSizeOptions: ['10', '20', '50', '100'],
       showQuickJumper: true,
       showSizeChanger: true, // 显示可改变每页数量
       showTotal: (total) => `共 ${total} 条数据`, // 显示总数
@@ -63,17 +63,17 @@ export const useTableState = ({ props, slots }: UseTableStateParams) => {
 
     let propsData: Recordable = {
       ...props,
-      rowKey: props.rowKey ?? "id",
+      rowKey: props.rowKey ?? 'id',
       loading: props.loading ?? unref(loadingRef),
       pagination: unref(paginationRef),
-      tableLayout: props.tableLayout ?? "fixed",
+      tableLayout: props.tableLayout ?? 'fixed',
       scroll: unref(scroll),
     };
     if (slots.expandedRowRender) {
-      propsData = omit(propsData, "scroll");
+      propsData = omit(propsData, 'scroll');
     }
 
-    propsData = omit(propsData, ["class", "onChange", "columns"]);
+    propsData = omit(propsData, ['class', 'onChange', 'columns']);
     return propsData;
   });
 
@@ -88,7 +88,7 @@ export const useTableState = ({ props, slots }: UseTableStateParams) => {
     {
       immediate: true,
       deep: true,
-    }
+    },
   );
 
   watch(
@@ -104,7 +104,7 @@ export const useTableState = ({ props, slots }: UseTableStateParams) => {
     {
       immediate: true,
       deep: true,
-    }
+    },
   );
 
   return {

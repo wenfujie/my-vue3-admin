@@ -1,4 +1,4 @@
-import { request } from "@/utils/request";
+import { request } from '@/utils/request';
 
 /**
  * @description 获取英雄联盟英雄详情
@@ -6,13 +6,13 @@ import { request } from "@/utils/request";
 export function getLolHeroInfo(query: { id: number | string }) {
   return request(
     {
-      url: "/demos/lol/hero_info",
-      method: "get",
+      url: '/demos/lol/hero_info',
+      method: 'get',
       params: query,
     },
     {
       isMock: true,
-    }
+    },
   );
 }
 
@@ -22,12 +22,12 @@ export function getLolHeroInfo(query: { id: number | string }) {
 export function getLolHeroList(query: API.PageParams) {
   return request<API.TableListResult>(
     {
-      url: "/demos/lol/hero_list",
-      method: "get",
+      url: '/demos/lol/hero_list',
+      method: 'get',
       params: query,
     },
     {
       isMock: true,
-    }
+    },
   );
 }

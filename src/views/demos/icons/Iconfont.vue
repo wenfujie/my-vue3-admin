@@ -48,25 +48,25 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
-import { Alert, Descriptions, Image } from "ant-design-vue";
+  import { reactive } from 'vue';
+  import { Alert, Descriptions, Image } from 'ant-design-vue';
 
-defineOptions({
-  name: "CustomIcon",
-});
+  defineOptions({
+    name: 'CustomIcon',
+  });
 
-/**
- * @description ant-design-vue配置阿里巴巴矢量图标库使用
- */
-const state = reactive({
-  scriptUrl: "//at.alicdn.com/t/font_1166867_7zdsgx6x88l.js",
-  iconName: "icon-huanfu1",
-  visible: false,
-  imageUrl: "",
-});
+  /**
+   * @description ant-design-vue配置阿里巴巴矢量图标库使用
+   */
+  const state = reactive({
+    scriptUrl: '//at.alicdn.com/t/font_1166867_7zdsgx6x88l.js',
+    iconName: 'icon-huanfu1',
+    visible: false,
+    imageUrl: '',
+  });
 
-const showPreview = (e) => {
-  state.imageUrl = e.target.currentSrc;
-  state.visible = true;
-};
+  const showPreview = (e) => {
+    state.imageUrl = e.target.currentSrc;
+    state.visible = true;
+  };
 </script>
