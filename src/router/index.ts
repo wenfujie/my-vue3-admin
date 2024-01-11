@@ -10,7 +10,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Layout",
-    redirect: "/dashboard/welcome",
+    redirect: "/dashboard",
     component: () =>
       import(/* webpackChunkName: "layout" */ "@/layout/index.vue"),
     meta: {

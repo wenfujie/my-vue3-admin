@@ -10,7 +10,7 @@ import { Storage } from "@/utils/Storage";
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-const defaultRoutePath = "/dashboard/welcome";
+const defaultRoutePath = "/dashboard";
 
 export function createRouterGuards(
   router: Router,

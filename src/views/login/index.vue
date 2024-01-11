@@ -2,7 +2,7 @@
   <div class="login-box">
     <div class="login-logo">
       <img src="~@/assets/images/logo.png" width="45" />
-      <h1 class="mb-0 ml-2 text-3xl font-bold">Antd Admin</h1>
+      <h1 class="mb-0 ml-2 text-3xl font-bold">Vue3 Antdv4 Admin</h1>
     </div>
     <a-form
       layout="horizontal"
@@ -75,7 +75,7 @@ const handleSubmit = async () => {
   message.success("登录成功！");
   state.loading = false;
   message.destroy();
-  setTimeout(() => router.replace("/dashboard/welcome"), 1000);
+  setTimeout(() => router.replace("/"), 1000);
 };
 </script>
 

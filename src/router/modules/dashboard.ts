@@ -5,28 +5,16 @@ const moduleName = "dashboard";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/dashboard",
-    name: moduleName,
-    redirect: "/dashboard/welcome",
-    component: RouterView,
+    path: "dashboard",
+    name: `${moduleName}-welcome`,
     meta: {
-      title: "主面板",
-      icon: "icon-yibiaopan",
+      title: "首页",
+      icon: "icon-shouye",
     },
-    children: [
-      {
-        path: "welcome",
-        name: `${moduleName}-welcome`,
-        meta: {
-          title: "主面板",
-          icon: "icon-shouye",
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard-welcome" */ "@/views/dashboard/index.vue"
-          ),
-      },
-    ],
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard-welcome" */ "@/views/dashboard/index.vue"
+      ),
   },
 ];
 
