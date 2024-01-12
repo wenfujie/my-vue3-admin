@@ -80,10 +80,6 @@
       display: flex;
       align-items: center;
       margin-bottom: 30px;
-
-      .svg-icon {
-        font-size: 48px;
-      }
     }
 
     :deep(.ant-form) {
