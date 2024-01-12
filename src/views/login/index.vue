@@ -36,6 +36,7 @@
   import { useRouter } from 'vue-router';
   import { message } from 'ant-design-vue';
   import { useUserStore } from '@/store/modules/user';
+  import { encodePassword } from './util';
 
   const state = reactive({
     loading: false,
@@ -50,18 +51,22 @@
   const userStore = useUserStore();
 
   const handleSubmit = async () => {
-    const { username, password } = state.formInline;
+    let { username, password } = state.formInline;
     if (username.trim() == '' || password.trim() == '') {
       return message.warning('用户名或密码不能为空！');
     }
-    message.loading('登录中...', 0);
+    const hideLoadingMsg = message.loading('登录中...', 0);
     state.loading = true;
 
-    await userStore.login(state.formInline);
-    message.success('登录成功！');
-    state.loading = false;
+    password = encodePassword(password);
+    await userStore.login({ username, password }).finally(() => {
+      state.loading = false;
+      hideLoadingMsg();
+    });
     message.destroy();
-    setTimeout(() => router.replace('/'), 1000);
+    message.success('登录成功！');
+    // 延迟避免异步菜单未加载完
+    setTimeout(() => router.replace('/'), 300);
   };
 </script>
 
@@ -73,7 +78,7 @@
     width: 100vw;
     height: 100vh;
     padding-top: 240px;
-    background: url('@/assets/login.svg');
+    background: url('@/assets/loginBg.svg');
     background-size: 100%;
 
     .login-logo {

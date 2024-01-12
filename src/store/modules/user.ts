@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia';
 import type { RouteRecordRaw } from 'vue-router';
-import type { LoginParams, LoginRes } from '@/api/sys/model/userModel';
+import type { LoginParams, LoginResModel } from '@/api/sys/model/userModel';
 import { store } from '@/store';
-import { ACCESS_TOKEN_KEY } from '@/enums/cacheEnum';
+import { ACCESS_TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum';
 import { Storage } from '@/utils/Storage';
 import { resetRouter } from '@/router';
 import { generatorDynamicRouter } from '@/router/generator-router';
+import { accountLogin } from '@/api/sys/user';
 
 interface UserState {
   token: string;
   menus: RouteRecordRaw[];
-  // TODO:
-  userInfo: any;
+  userInfo: null | LoginResModel;
 }
 
 export const useUserStore = defineStore({
@@ -19,9 +19,7 @@ export const useUserStore = defineStore({
   state: (): UserState => ({
     token: Storage.get(ACCESS_TOKEN_KEY, null),
     menus: [],
-    userInfo: {
-      name: 'wfj',
-    },
+    userInfo: Storage.get(USER_INFO_KEY, null),
   }),
   getters: {
     getToken(): string {
@@ -30,19 +28,12 @@ export const useUserStore = defineStore({
   },
   actions: {
     async login(data: LoginParams) {
-      console.log('%c data', 'color:#0f0;', data);
-      // TODO: use api
-      const loginInfo: LoginRes = {
-        token: '123123123',
-        expire: 24 * 3600,
-      };
-      this.setToken(loginInfo.token, loginInfo.expire);
+      const userInfo = await accountLogin(data);
+      this.setLoginInfo(userInfo);
       this.afterLogin();
     },
     /** 登录成功之后, 获取用户信息以及生成权限路由 */
     async afterLogin() {
-      // TODO: use api getUser
-      this.userInfo = { name: 'wfj' };
       await this.setMenus();
     },
     logout() {
@@ -53,16 +44,19 @@ export const useUserStore = defineStore({
       // TODO: 在此处理动态菜单
       const generatorResult = await generatorDynamicRouter();
       this.menus = generatorResult.menus.filter((item) => !item.meta?.hideInMenu);
-      console.log('%c label', 'color:#0f0;', this.menus);
     },
-    /** 登录成功保存token */
-    setToken(token: string, ex: number) {
-      this.token = token ?? '';
-      Storage.set(ACCESS_TOKEN_KEY, this.token, ex);
+    /** 保存登录信息 */
+    setLoginInfo(userInfo: LoginResModel) {
+      const { expiration = null, token = '' } = userInfo;
+      this.userInfo = userInfo;
+      Storage.set(USER_INFO_KEY, userInfo, expiration);
+
+      this.token = token;
+      Storage.set(ACCESS_TOKEN_KEY, token, expiration);
     },
     resetCache() {
       this.menus = [];
-      this.userInfo = {};
+      this.userInfo = null;
       Storage.clear();
     },
   },

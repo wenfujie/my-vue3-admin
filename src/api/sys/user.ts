@@ -1,10 +1,11 @@
-import type { LoginParams, LoginRes } from './model/userModel';
+import type { LoginParams, LoginResModel } from './model/userModel';
 import { request } from '@/utils/request';
 
-export function login(data: LoginParams) {
-  return request<LoginRes>({
-    url: 'login',
-    method: 'post',
-    data,
+export const accountLogin = ({ username: user_id, password }: LoginParams) =>
+  request<LoginResModel>({
+    url: '/admin/login/Account',
+    data: {
+      user_id,
+      password,
+    },
   });
-}

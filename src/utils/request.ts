@@ -38,6 +38,7 @@ service.interceptors.response.use(
       const errMessage = res.message || UNKNOWN_ERROR;
       const error = new Error(errMessage) as Error & { code: any };
 
+      console.log('%c buzhixingma', 'color:#0f0;');
       $message.error(errMessage);
       error.code = res.code;
       return Promise.reject(error);
@@ -76,7 +77,10 @@ export const request = async <T = any>(
   options: RequestOptions = {},
 ): Promise<T> => {
   const { isMock } = options;
-  config.url = `${(isMock ? baseMockUrl : baseApiUrl) + config.url}`;
+  if (isMock) {
+    config.url = baseMockUrl + config.url;
+  }
+  config.method = config.method || 'post';
 
   try {
     const res = await service.request(config);

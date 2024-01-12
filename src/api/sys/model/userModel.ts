@@ -3,7 +3,14 @@ export interface LoginParams {
   password: string;
 }
 
-export interface LoginRes {
+export interface LoginResModel {
+  user_id: string;
+  name: string;
   token: string;
-  expire: number;
+  is_admin: number;
+  data_permission: object;
+  expiration?: number;
+  menu: {
+    menus: any[];
+  };
 }

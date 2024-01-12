@@ -33,7 +33,7 @@
       <Search />
       <FullScreen />
       <Dropdown placement="bottomRight">
-        <Avatar :src="userInfo.headImg" :alt="userInfo.name">{{ userInfo.name }}</Avatar>
+        <Avatar :alt="userInfo?.name">{{ userInfo?.name }}</Avatar>
         <template #overlay>
           <Menu>
             <Menu.Item>

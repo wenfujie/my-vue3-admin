@@ -40,7 +40,7 @@ module.exports = {
     // js/ts
     // 'no-console': ['warn', { allow: ['error'] }],
     'no-restricted-syntax': ['error', 'LabeledStatement', 'WithStatement'],
-    camelcase: ['error', { properties: 'never' }],
+    camelcase: ['off', { properties: 'never' }],
 
     'no-var': 'error',
     'no-empty': ['error', { allowEmptyCatch: true }],
@@ -63,7 +63,7 @@ module.exports = {
     // '@typescript-eslint/consistent-type-imports': ['error', { disallowTypeAnnotations: false }],
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-unused-vars': [
-      'error',
+      'off',
       {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
