@@ -11,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
     component: RouterView,
     meta: {
       title: '组件demo演示',
-      icon: 'icon-zhuomian',
+      icon: 'icon-yibiaopan',
     },
     children: [
       {
@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
         name: `${moduleName}-form`,
         meta: {
           title: '表单演示',
-          icon: 'icon-zhuomian',
+          icon: 'icon-icon_shiyongwendang',
           keepAlive: true,
         },
         redirect: { name: `${moduleName}-form-basic` },
@@ -96,7 +96,7 @@ const routes: Array<RouteRecordRaw> = [
         name: `${moduleName}-table`,
         meta: {
           title: '表格演示',
-          icon: 'icon-zhuomian',
+          icon: 'icon-biaoge',
           keepAlive: true,
         },
         redirect: { name: `${moduleName}-table-lol` },

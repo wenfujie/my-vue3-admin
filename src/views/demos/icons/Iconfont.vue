@@ -8,15 +8,28 @@
       style="margin-bottom: 12px"
     />
     <a-card>
-      示意图：<Image
-        :width="700"
-        src="http://ww1.sinaimg.cn/large/005IOlAWgy1gl8bm4ot9dj314r0opabq.jpg"
-        @click="showPreview"
-      />
       <Descriptions title="使用示例" :column="1">
-        <Descriptions.Item label="本地图标效果">
-          <icon-font type="icon-xinwendongtai1" />
+        <Descriptions.Item label="antdv 图标效果">
+          <VerticalAlignBottomOutlined :style="{ fontSize: '30px', color: '#08c' }" />
+          <a href="https://www.antdv.com/components/icon-cn" target="_blank" class="ml-15px"
+            >前往 antdv 图标库</a
+          >
         </Descriptions.Item>
+
+        <Descriptions.Item label="本地图标效果">
+          <div class="flex flex-wrap">
+            <icon-font
+              v-for="name in iconNames"
+              :key="name"
+              class="icon"
+              :type="name"
+              :title="name"
+              size="30"
+              @click="clickIcon(name)"
+            />
+          </div>
+        </Descriptions.Item>
+
         <Descriptions.Item label="远程图库地址">
           <a-input
             v-model:value="state.scriptUrl"
@@ -49,12 +62,19 @@
 
 <script lang="ts" setup>
   import { reactive } from 'vue';
-  import { Alert, Descriptions, Image } from 'ant-design-vue';
+  import { Alert, Descriptions, message } from 'ant-design-vue';
+  import { VerticalAlignBottomOutlined } from '@ant-design/icons-vue';
+  import { iconNames } from './icon-names';
+  import { copyText } from '@/utils/browser';
 
   defineOptions({
     name: 'CustomIcon',
   });
 
+  const clickIcon = async (iconName: string) => {
+    await copyText(`<icon-font type="${iconName}" />`);
+    message.success(`${iconName} 复制成功`);
+  };
   /**
    * @description ant-design-vue配置阿里巴巴矢量图标库使用
    */
@@ -64,9 +84,14 @@
     visible: false,
     imageUrl: '',
   });
-
-  const showPreview = (e) => {
-    state.imageUrl = e.target.currentSrc;
-    state.visible = true;
-  };
 </script>
+
+<style lang="less" scoped>
+  .icon {
+    padding: 10px;
+    &:hover {
+      color: #fff;
+      background-color: #1677ff;
+    }
+  }
+</style>
